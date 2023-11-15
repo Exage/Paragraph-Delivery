@@ -1,0 +1,16 @@
+@import './vars';
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    background-color: $bg-color;
+    color: $text-color;
+
+    font-family: 'Alegreya', serif;
+}
+
+.title {
+    font-size: 3rem;
+}
