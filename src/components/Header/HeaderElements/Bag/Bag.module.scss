@@ -2,7 +2,7 @@
 @import '../../../../mixins';
 
 .header {
-    &Basket {
+    &Bag {
         margin-left: 2rem;
     
         @include bp($bp-header-1) {
@@ -25,6 +25,10 @@
                     display: block;
                     margin-left: 1.5rem;
                 }
+            }
+
+            &.active {
+                display: none;
             }
 
             @include bp($bp-header-1) {

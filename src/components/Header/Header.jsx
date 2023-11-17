@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
 
-import styles from './Header.module.scss'
+import './Header.scss'
 
-import logoDesktop from '../../images/logo.png'
-import logoMobile from '../../images/logo-mobile.png'
+import logoDesktop from '../../images/logo.svg'
+import logoMobile from '../../images/logo-mobile.svg'
 
 import { Back } from './HeaderElements/Back/Back'
 import { User } from './HeaderElements/User/User'
 import { Address } from './HeaderElements/Address/Address'
-import { Basket } from './HeaderElements/Basket/Basket'
+import { Bag } from './HeaderElements/Bag/Bag'
 import { Burger } from './HeaderElements/Burger/Burger'
 
-export const Header = ({ isBurgerOpen, setBurgerOpen, toggleBurger, closeBurger }) => {
+export const Header = ({ isBurgerOpen, toggleBurger, closeBurger }) => {
     const [isTablet, setTablet] = useState(false)
 
     useEffect(() => {
@@ -32,29 +32,29 @@ export const Header = ({ isBurgerOpen, setBurgerOpen, toggleBurger, closeBurger 
     }, [isTablet])
 
     const handleOverlayClick = (event) => {
-        if (event.target.classList.contains(styles.headerMenuOverlay)) {
+        if (event.target.classList.contains('header-menu-overlay')) {
             closeBurger()
         }
     }
 
     return (
         <>
-            <header className={styles.header}>
+            <header className='header'>
                 <div className="container">
-                    <div className={`${styles.headerInner}`}>
-                        <div className={styles.headerInnerLeftSide}>
+                    <div className='header-inner'>
+                        <div className='header-inner-left-side'>
                             <Back />
-                            {!isTablet && <User />}
+                            {!isTablet && <User closeBurger={closeBurger} />}
                         </div>
 
-                        <div className={styles.headerInnerLogo}>
-                            <img className={styles.headerInnerLogoDesktop} src={logoDesktop} />
-                            <img className={styles.headerInnerLogoMobile} src={logoMobile} />
+                        <div className='header-inner-logo'>
+                            <img className='header-inner-logo-desktop' src={logoDesktop} />
+                            <img className='header-inner-logo-mobile' src={logoMobile} />
                         </div>
 
-                        <div className={styles.headerInnerRightSide}>
-                            {!isTablet && <Address />}
-                            {!isTablet && <Basket />}
+                        <div className='header-inner-right-side'>
+                            {!isTablet && <Address closeBurger={closeBurger} />}
+                            {!isTablet && <Bag closeBurger={closeBurger} />}
                             <Burger
                                 isBurgerOpen={isBurgerOpen}
                                 toggleBurger={toggleBurger}
@@ -68,15 +68,15 @@ export const Header = ({ isBurgerOpen, setBurgerOpen, toggleBurger, closeBurger 
                 <div
                     className={(
                         isBurgerOpen
-                            ? `${styles.headerMenuOverlay} ${styles.headerMenuOverlayOpen}`
-                            : styles.headerMenuOverlay
+                            ? 'header-menu-overlay header-menu-overlay-open'
+                            : 'header-menu-overlay'
                     )}
                     onClick={Event => handleOverlayClick(Event)}
                 >
-                    <div className={styles.headerMenu}>
-                        <div className={styles.headerMenuInner}>
+                    <div className='header-menu'>
+                        <div className='header-menu-inner'>
                             <Address />
-                            <Basket />
+                            <Bag />
                             <User />
                         </div>
                     </div>

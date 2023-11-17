@@ -18,15 +18,15 @@
 
     z-index: $header-z-index;
 
-    &Inner {
+    &-inner {
         display: flex;
         align-items: center;
         justify-content: space-between;
 
         position: relative;
 
-        &LeftSide,
-        &RightSide {
+        &-left-side,
+        &-right-side {
             display: flex;
             align-items: center;
 
@@ -37,17 +37,17 @@
             }
         }
 
-        &LeftSide {
+        &-left-side {
             @include bp($bp-header-1) {
                 width: 4.4rem;
             }
         }
 
-        &RightSide {
+        &-right-side {
             justify-content: flex-end;
         }
 
-        &Logo {
+        &-logo {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -57,7 +57,7 @@
                 width: calc(100% - 8.8rem);
             }
 
-            &Desktop {
+            &-desktop {
                 display: block;
 
                 @include bp($bp-header-2) {
@@ -65,7 +65,7 @@
                 }
             }
 
-            &Mobile {
+            &-mobile {
                 display: none;
 
                 @include bp($bp-header-2) {
@@ -75,9 +75,30 @@
         }
     }
 
+    &-link {
+        @include bp($bp-header-1) {
+            padding: 1rem 0;
+        }
+        &-wrapper {
+            width: $header-link-width;
+            height: $header-link-height;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            @include bp($bp-header-1) {
+                width: auto;
+                height: auto;
+
+                display: block;
+            }
+        }
+    }
+
     /* Header Menu */
 
-    &Menu {
+    &-menu {
         max-width: 40rem;
         width: 100%;
 
@@ -87,16 +108,16 @@
         transform: translateX(40rem);
 
         transition: transform .2s ease;
-        
+
         @include bp($bp-header-3) {
             max-width: 100%;
         }
 
-        &Inner {
+        &-inner {
             padding: 3rem 2rem;
         }
 
-        &Overlay {
+        &-overlay {
             position: fixed;
             bottom: 0;
             left: 0;
@@ -123,14 +144,18 @@
                 display: flex;
             }
 
-            &Open {
+            &-open {
                 visibility: visible;
                 opacity: 1;
 
-                .headerMenu {
+                .header-menu {
                     transform: translateX(0);
                 }
             }
         }
     }
+}
+
+.active {
+    display: none !important;
 }

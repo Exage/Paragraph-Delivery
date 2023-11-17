@@ -3,9 +3,6 @@
 
 .header {
     &Back {
-        display: flex;
-        align-items: flex-start;
-
         margin-right: 4.5rem;
 
         @include bp($bp-header-1) {
@@ -14,6 +11,7 @@
 
         &Btn {
             cursor: pointer;
+            display: block;
             width: 4.4rem;
             height: 4.4rem;
 

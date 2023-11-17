@@ -3,9 +3,6 @@
 
 .header {
     &Address {
-        @include bp($bp-header-1) {
-            margin-bottom: 2rem;
-        }
         &Btn {
             cursor: pointer;
 

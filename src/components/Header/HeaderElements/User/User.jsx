@@ -4,9 +4,9 @@ import styles from './User.module.scss'
 
 import userLogo from '../../../../images/header/user-logo.png'
 
-export const User = () => {
+export const User = ({ closeBurger }) => {
     return (
-        <button className={styles.headerUser}>
+        <button onClick={closeBurger} className={styles.headerUser}>
             <h3 className={styles.headerUserLabel}>
                 Выйти,&nbsp;
             </h3>

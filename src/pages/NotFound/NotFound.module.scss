@@ -1,0 +1,11 @@
+@import '../../vars';
+
+.notFound {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: calc(100vh - $header-height);
+
+    font-size: 5.2rem;
+}

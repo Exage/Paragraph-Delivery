@@ -3,7 +3,6 @@ import React from 'react'
 import styles from './Burger.module.scss'
 
 export const Burger = ({ isBurgerOpen, toggleBurger }) => {
-    console.log(isBurgerOpen)
     return (
         <div className={styles.headerBurger}>
             <button
