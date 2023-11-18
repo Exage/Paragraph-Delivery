@@ -11,8 +11,8 @@ export const Home = () => {
                     <Link to='/product/coffee' className='home-link'>
                         Coffee
                     </Link>
-                    <Link to='/products/dessert' className='home-link'>
-                        Dessert
+                    <Link to='/products/desserts' className='home-link'>
+                        Desserts
                     </Link>
                     <Link to='/products/beverages' className='home-link'>
                         Beverages
