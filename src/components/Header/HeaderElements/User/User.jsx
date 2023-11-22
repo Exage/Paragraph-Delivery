@@ -1,12 +1,21 @@
 import React from 'react'
+import { signOut } from 'firebase/auth'
+import { auth } from '../../../../firebase'
 
 import styles from './User.module.scss'
 
 import userLogo from '../../../../images/header/user-logo.png'
 
-export const User = ({ closeBurger }) => {
+export const User = ({ closeBurger, userData }) => {
+
+    const userSignOut = () => {
+        signOut(auth).then(() => {
+            console.log('Sign Out Successful')
+        }).catch(error => console.log(error))
+    }
+    
     return (
-        <button onClick={closeBurger} className={styles.headerUser}>
+        <button onClick={userSignOut} className={styles.headerUser}>
             <h3 className={styles.headerUserLabel}>
                 Выйти,&nbsp;
             </h3>
@@ -14,7 +23,7 @@ export const User = ({ closeBurger }) => {
                 <img src={userLogo} />
             </div>
             <h3 className={styles.headerUserName}>
-                User Name
+                {userData.name}
             </h3>
         </button>
     )

@@ -11,7 +11,7 @@ import { Address } from './HeaderElements/Address/Address'
 import { Bag } from './HeaderElements/Bag/Bag'
 import { Burger } from './HeaderElements/Burger/Burger'
 
-export const Header = ({ isBurgerOpen, toggleBurger, closeBurger }) => {
+export const Header = ({ isBurgerOpen, toggleBurger, closeBurger, userData }) => {
     const [isTablet, setTablet] = useState(false)
 
     useEffect(() => {
@@ -44,7 +44,7 @@ export const Header = ({ isBurgerOpen, toggleBurger, closeBurger }) => {
                     <div className='header-inner'>
                         <div className='header-inner-left-side'>
                             <Back />
-                            {!isTablet && <User closeBurger={closeBurger} />}
+                            {!isTablet && <User closeBurger={closeBurger} userData={userData} />}
                         </div>
 
                         <div className='header-inner-logo'>
@@ -77,7 +77,7 @@ export const Header = ({ isBurgerOpen, toggleBurger, closeBurger }) => {
                         <div className='header-menu-inner'>
                             <Address />
                             <Bag />
-                            <User />
+                            <User userData={userData} />
                         </div>
                     </div>
                 </div>

@@ -1,11 +1,15 @@
-import { useState } from 'react'
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Route, Routes, useLocation } from 'react-router-dom'
+import { onAuthStateChanged } from 'firebase/auth'
+import { doc, getDoc } from 'firebase/firestore'
+import { auth, firestore } from './firebase'
 
 import 'the-new-css-reset/css/reset.css'
 import './App.scss'
 
+/* Pages */
 import { Home } from './pages/Home/Home'
-import { Login } from './pages/Login/Login'
+import { Auth } from './pages/Auth/Auth'
 import { Register } from './pages/Register/Register'
 import { Bag } from './pages/Bag/Bag'
 import { Addresses } from './pages/Addresses/Addresses'
@@ -15,12 +19,53 @@ import { Products } from './pages/Products/Products'
 
 import { NotFound } from './pages/NotFound/NotFound'
 
+/* Components */
 import { Header } from './components/Header/Header'
 
 function App() {
 	const [isBurgerOpen, setBurgerOpen] = useState(false)
 
 	const location = useLocation()
+
+	const [loading, setLoading] = useState(true)
+	const [isAuth, setIsAuth] = useState(false)
+	const [isRegister, setIsRegister] = useState(false)
+
+	const [userData, setUserData] = useState({})
+	const [uid, setUid] = useState('')
+
+	useEffect(() => {
+		const authStateHandler = onAuthStateChanged(auth, (user) => {
+			if (user) {
+				setIsAuth(true)
+				checkUser(user.uid)
+				setUid(user.uid)
+			} else {
+				setIsAuth(false)
+				setIsRegister(false)
+				setLoading(false)
+			}
+		})
+
+		return () => {
+			authStateHandler()
+		}
+	}, [loading, isAuth, isRegister])
+
+	const checkUser = async (uid) => {
+		const docRef = doc(firestore, 'users', uid)
+		const docSnap = await getDoc(docRef)
+
+		if (docSnap.exists()) {
+			console.log("Document data:", docSnap.data())
+			setUserData(docSnap.data())
+			setIsRegister(true)
+		} else {
+			console.log("No such document!")
+			setIsRegister(false)
+		}
+		setLoading(false)
+	}
 
 	const toggleBurger = () => {
 		setBurgerOpen(!isBurgerOpen)
@@ -34,7 +79,7 @@ function App() {
 		setBurgerOpen(false)
 	}
 
-	const isAuthPage = !['/login', '/register'].includes(location.pathname)
+	const isAuthPage = !['/auth', '/register'].includes(location.pathname)
 
 	return (
 		<div className="App">
@@ -43,13 +88,53 @@ function App() {
 					isBurgerOpen={isBurgerOpen}
 					toggleBurger={toggleBurger}
 					closeBurger={closeBurger}
+
+					userData={userData}
 				/>
 			)}
 			<Routes>
-				<Route path="/login" element={<Login />} />
-				<Route path="/register" element={<Register />} />
+				<Route path="/auth" element={
+					<Auth
+						loading={loading}
+						setLoading={setLoading}
 
-				<Route index element={<Home />} />
+						isAuth={isAuth}
+						setIsAuth={setIsAuth}
+
+						isRegister={isRegister}
+						setIsRegister={setIsRegister}
+					/>
+				} />
+
+				<Route path="/register" element={<Register 
+					loading={loading}
+					setLoading={setLoading}
+
+					isAuth={isAuth}
+					setIsAuth={setIsAuth}
+
+					isRegister={isRegister}
+					setIsRegister={setIsRegister}
+
+					uid={uid}
+				/>
+				} />
+
+				<Route index element={
+					<Home
+						loading={loading}
+						setLoading={setLoading}
+
+						isAuth={isAuth}
+						setIsAuth={setIsAuth}
+
+						isRegister={isRegister}
+						setIsRegister={setIsRegister}
+
+						userData={userData}
+					/>
+				} />
+
 				<Route path='/bag' element={<Bag />} />
 				<Route path='/addresses' element={<Addresses />} />
 
@@ -58,6 +143,7 @@ function App() {
 
 				<Route path='*' element={<NotFound />} />
 			</Routes>
+			<div id='recaptcha-container' style={{ display: 'none' }}></div>
 		</div>
 	)
 }
