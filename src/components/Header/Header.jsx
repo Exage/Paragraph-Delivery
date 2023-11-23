@@ -37,34 +37,31 @@ export const Header = ({ isBurgerOpen, toggleBurger, closeBurger, userData }) =>
         }
     }
 
-    return (
-        <>
-            <header className='header'>
-                <div className="container">
-                    <div className='header-inner'>
-                        <div className='header-inner-left-side'>
-                            <Back />
-                            {!isTablet && <User closeBurger={closeBurger} userData={userData} />}
-                        </div>
+    if (isTablet) {
+        return (
+            <>
+                <header className='header'>
+                    <div className="container">
+                        <div className='header-inner'>
+                            <div className='header-inner-left-side'>
+                                <Back />
+                            </div>
 
-                        <div className='header-inner-logo'>
-                            <img className='header-inner-logo-desktop' src={logoDesktop} />
-                            <img className='header-inner-logo-mobile' src={logoMobile} />
-                        </div>
+                            <div className='header-inner-logo'>
+                                <img className='header-inner-logo-desktop' src={logoDesktop} />
+                                <img className='header-inner-logo-mobile' src={logoMobile} />
+                            </div>
 
-                        <div className='header-inner-right-side'>
-                            {!isTablet && <Address closeBurger={closeBurger} />}
-                            {!isTablet && <Bag closeBurger={closeBurger} />}
-                            <Burger
-                                isBurgerOpen={isBurgerOpen}
-                                toggleBurger={toggleBurger}
-                            />
+                            <div className='header-inner-right-side'>
+                                <Burger
+                                    isBurgerOpen={isBurgerOpen}
+                                    toggleBurger={toggleBurger}
+                                />
+                            </div>
                         </div>
                     </div>
-                </div>
-            </header>
+                </header>
 
-            {isTablet && (
                 <div
                     className={(
                         isBurgerOpen
@@ -81,7 +78,34 @@ export const Header = ({ isBurgerOpen, toggleBurger, closeBurger, userData }) =>
                         </div>
                     </div>
                 </div>
-            )}
-        </>
+            </>
+        )
+    }
+
+    return (
+        <header className='header'>
+            <div className="container">
+                <div className='header-inner'>
+                    <div className='header-inner-left-side'>
+                        <Back />
+                        <User closeBurger={closeBurger} userData={userData} />
+                    </div>
+
+                    <div className='header-inner-logo'>
+                        <img className='header-inner-logo-desktop' src={logoDesktop} />
+                        <img className='header-inner-logo-mobile' src={logoMobile} />
+                    </div>
+
+                    <div className='header-inner-right-side'>
+                        <Address closeBurger={closeBurger} />
+                        <Bag closeBurger={closeBurger} />
+                        <Burger
+                            isBurgerOpen={isBurgerOpen}
+                            toggleBurger={toggleBurger}
+                        />
+                    </div>
+                </div>
+            </div>
+        </header>
     )
 }

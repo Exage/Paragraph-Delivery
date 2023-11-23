@@ -57,11 +57,9 @@ function App() {
 		const docSnap = await getDoc(docRef)
 
 		if (docSnap.exists()) {
-			console.log("Document data:", docSnap.data())
 			setUserData(docSnap.data())
 			setIsRegister(true)
 		} else {
-			console.log("No such document!")
 			setIsRegister(false)
 		}
 		setLoading(false)
@@ -106,7 +104,7 @@ function App() {
 					/>
 				} />
 
-				<Route path="/register" element={<Register 
+				<Route path="/register" element={<Register
 					loading={loading}
 					setLoading={setLoading}
 
@@ -139,7 +137,20 @@ function App() {
 				<Route path='/addresses' element={<Addresses />} />
 
 				<Route path='/product/:productid' element={<Product />} />
-				<Route path='/products/:productid' element={<Products />} />
+				<Route path='/products/:productid' element={
+					<Products
+						loading={loading}
+						setLoading={setLoading}
+
+						isAuth={isAuth}
+						setIsAuth={setIsAuth}
+
+						isRegister={isRegister}
+						setIsRegister={setIsRegister}
+
+						userData={userData}
+					/>}
+				/>
 
 				<Route path='*' element={<NotFound />} />
 			</Routes>

@@ -9,8 +9,6 @@ body {
     color: $text-color;
 
     font-family: 'Alegreya', serif;
-    
-    padding-top: $header-height;
 }
 
 .container {
@@ -27,4 +25,17 @@ body {
 
 .title {
     font-size: 3.6rem;
+}
+
+.btn {
+    font-size: 2rem;
+    padding: 0 4rem;
+
+    text-align: center;
+
+    border-radius: .6rem;
+
+    background-color: $dark-color;
+
+    cursor: pointer;
 }

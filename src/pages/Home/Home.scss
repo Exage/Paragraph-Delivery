@@ -1,7 +1,151 @@
 @import '../../vars';
+@import '../../mixins';
+
+$bp-1: 1024px;
+$bp-2: 555px;
 
 .home {
-    &-link {
-        font-size: 2.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    min-height: 100vh;
+
+    padding-top: $header-height + 2;
+    padding-bottom: 5rem;
+
+    position: relative;
+
+    @include bp($bp-2) {
+        padding-top: $header-height + 2;
+        padding-bottom: 2rem;
+    }
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        z-index: -10;
+
+        background-position: bottom;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    &::before {
+        background-image: url(../../images/main/main-bg-1.svg);
+        z-index: -10;
+
+        @include bp(1024px) {
+            background-size: cover;
+        }
+    }
+
+    &::after {
+        background-image: url(../../images/main/main-bg-2.png);
+        background-position: right;
+        z-index: -15;
+
+        @include bp(1024px) {
+            display: none;
+        }
+    }
+
+    &-wrapper {
+        max-width: 125.5rem;
+        width: 100%;
+
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    &-items {
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 9rem;
+
+        @include bp($bp-2) {
+            row-gap: 2rem;
+        }
+    }
+
+    &-item {
+        width: 50%;
+        display: flex;
+
+        position: relative;
+
+        @include bp($bp-2) {
+            width: 100%;
+        }
+
+        &:nth-child(even) {
+            justify-content: flex-end;
+            padding-left: 0.5rem;
+
+            @include bp($bp-2) {
+                justify-content: center;
+                padding-left: 0;
+            }
+        }
+
+        &:nth-child(odd) {
+            justify-content: flex-start;
+            padding-right: 0.5rem;
+
+            @include bp($bp-2) {
+                justify-content: center;
+                padding-left: 0;
+            }
+        }
+
+        &-link {
+            display: flex;
+
+            max-width: 41.5rem;
+            width: 100%;
+            height: auto;
+
+            position: relative;
+
+            background-color: $dark-color;
+        }
+
+        &-photo {
+            display: flex;
+            width: 100%;
+
+            z-index: 1;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        &-text {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+
+            width: 100%;
+            height: 100%;
+
+            font-size: 3.2rem;
+
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 5%, rgba(0, 0, 0, 0.60) 75%);
+
+            z-index: 5;
+        }
     }
 }
