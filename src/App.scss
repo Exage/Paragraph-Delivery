@@ -11,12 +11,24 @@ body {
     font-family: 'Alegreya', serif;
 }
 
+hr {
+    width: 100%;
+    height: 5px;
+
+    background-color: #ffffff2a;
+}
+
 .container {
     max-width: 146rem;
     width: 100%;
 
     margin: 0 auto;
     padding: 0 1rem;
+
+    &-nopadding {
+        max-width: 144rem;
+        padding: 0;
+    }
 }
 
 .hide {
@@ -38,4 +50,24 @@ body {
     background-color: $dark-color;
 
     cursor: pointer;
+
+    &:disabled {
+        opacity: 0.5;
+    }
+}
+
+.input {
+    width: 100%;
+    color: $text-color;
+    background-color: $dark-color;
+
+    &:disabled {
+        opacity: 0.5;
+    }
+}
+
+.title {
+    font-size: 6.4rem;
+    font-weight: 400;
+    text-shadow: 0 10px 4px rgba(#000, 0.25);
 }

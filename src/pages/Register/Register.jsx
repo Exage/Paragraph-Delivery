@@ -17,7 +17,8 @@ export const Register = ({ loading, setLoading, isAuth, isRegister, setIsRegiste
         try {
             await setDoc(doc(firestore, 'users', uid), {
                 uid: uid,
-                name: name
+                name: name,
+                isAdmin: false
             })
 
             console.log("Document written")

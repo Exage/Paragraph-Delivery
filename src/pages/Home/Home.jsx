@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, Navigate, Outlet } from 'react-router-dom'
 import { getDownloadURL, getStorage, ref } from 'firebase/storage'
 
 import { HomeItems } from './HomeItems'
@@ -10,19 +10,20 @@ import { Loading } from '../../components/Loading/Loading'
 
 export const Home = ({ loading, setLoading, isAuth, setIsAuth, isRegister, setIsRegister, userData }) => {
 
-    if (loading) {
-        return <Loading text='Load Home' />
-    }
+    // if (loading) {
+    //     return <Loading text='Load Home' />
+    // }
 
-    if (!isAuth) {
-        console.log('Not Auth')
-        return <Navigate to='/auth' />
-    }
+    // if (!isAuth) {
+    //     console.log('Not Auth')
+    //     return <Navigate to='/auth' />
+    // }
 
-    if (!isRegister) {
-        console.log('Not Register')
-        return <Navigate to='/register' />
-    }
+    // if (!isRegister) {
+    //     console.log('Not Register')
+    //     return <Navigate to='/register' />
+    // }
+
     return (
         <div className='home'>
             <div className="home-wrapper">
@@ -46,8 +47,10 @@ export const Home = ({ loading, setLoading, isAuth, setIsAuth, isRegister, setIs
                             </Link>
                         </div>
                     ))}
-                </div>
 
+                    <Outlet />
+
+                </div>
             </div>
         </div>
     )

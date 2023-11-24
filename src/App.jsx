@@ -17,10 +17,13 @@ import { Addresses } from './pages/Addresses/Addresses'
 import { Product } from './pages/Product/Product'
 import { Products } from './pages/Products/Products'
 
+import { Admin } from './pages/Admin/Admin'
+
 import { NotFound } from './pages/NotFound/NotFound'
 
 /* Components */
 import { Header } from './components/Header/Header'
+import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
 
 function App() {
 	const [isBurgerOpen, setBurgerOpen] = useState(false)
@@ -104,22 +107,52 @@ function App() {
 					/>
 				} />
 
-				<Route path="/register" element={<Register
-					loading={loading}
-					setLoading={setLoading}
+				<Route path="/register" element={
+					<ProtectedRoute
+						redirectPath="/auth"
+						isAllowed={isAuth}
+					>
+						<Register
+							loading={loading}
+							setLoading={setLoading}
 
-					isAuth={isAuth}
-					setIsAuth={setIsAuth}
+							isAuth={isAuth}
+							setIsAuth={setIsAuth}
 
-					isRegister={isRegister}
-					setIsRegister={setIsRegister}
+							isRegister={isRegister}
+							setIsRegister={setIsRegister}
 
-					uid={uid}
-				/>
+							uid={uid}
+						/>
+					</ProtectedRoute>
+
 				} />
 
 				<Route index element={
-					<Home
+					<ProtectedRoute
+						redirectPath="/auth"
+						isAllowed={isAuth}
+					>
+						<Home
+							loading={loading}
+							setLoading={setLoading}
+
+							isAuth={isAuth}
+							setIsAuth={setIsAuth}
+
+							isRegister={isRegister}
+							setIsRegister={setIsRegister}
+
+							userData={userData}
+						/>
+					</ProtectedRoute>
+				} />
+
+				<Route path='/bag' element={<Bag />} />
+				<Route path='/addresses' element={<Addresses />} />
+
+				<Route path='/product/:productid' element={
+					<Product
 						loading={loading}
 						setLoading={setLoading}
 
@@ -130,13 +163,8 @@ function App() {
 						setIsRegister={setIsRegister}
 
 						userData={userData}
-					/>
-				} />
-
-				<Route path='/bag' element={<Bag />} />
-				<Route path='/addresses' element={<Addresses />} />
-
-				<Route path='/product/:productid' element={<Product />} />
+					/>}
+				/>
 				<Route path='/products/:productid' element={
 					<Products
 						loading={loading}
@@ -150,6 +178,18 @@ function App() {
 
 						userData={userData}
 					/>}
+				/>
+
+				<Route
+					path="admin"
+					element={
+						<ProtectedRoute
+							redirectPath="/*"
+							isAllowed={userData.isAdmin}
+						>
+							<Admin />
+						</ProtectedRoute>
+					}
 				/>
 
 				<Route path='*' element={<NotFound />} />

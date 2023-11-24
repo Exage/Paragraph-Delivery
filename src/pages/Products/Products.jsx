@@ -25,6 +25,8 @@ export const Products = ({ loading, setLoading, isAuth, setIsAuth, isRegister, s
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setLoading(true)
+
                 const docRef = doc(firestore, 'products', params.productid)
                 const docSnap = await getDoc(docRef)
 
@@ -33,23 +35,7 @@ export const Products = ({ loading, setLoading, isAuth, setIsAuth, isRegister, s
 
                     setImagesOnRightSide(productData.isImagesOnRightSide)
                     setName(productData.name)
-
-                    const newData = await Promise.all(
-                        productData.product.map(async (item) => {
-                            if (item.imageUrl) {
-                                try {
-                                    const imageUrl = await getDownloadURL(ref(getStorage(), `${params.productid}/${item.imageUrl}`))
-                                    return { ...item, imageUrl }
-                                } catch (imageError) {
-                                    console.error(`Ошибка при получении URL изображения: ${item.imageUrl}`, imageError)
-                                    return item
-                                }
-                            }
-                            return item
-                        })
-                    )
-
-                    setProducts(newData)
+                    setProducts(productData.product)
                 } else {
                     console.log('Документ не найден')
                 }
@@ -89,73 +75,85 @@ export const Products = ({ loading, setLoading, isAuth, setIsAuth, isRegister, s
     }
 
     return (
-        <div className="container">
-            <div className="products">
-                <div className="products-items">
-                    <div className="products-items-head">
-                        <h1 className="products-items-head-title">{name}</h1>
-                    </div>
-                    <div className="products-items-body">
-                        {products.map(item => (
-                            <div key={item.uuid} className='products-item'>
-                                <div className="products-item-side">
-                                    <div className="products-item-photo">
+        <>
+            <div className="container container-nopadding">
+                <div className="products">
+                    <div className="products-items">
+                        <div className="products-items-head">
+                            <h1 className="products-items-head-title title">{name}</h1>
+                        </div>
+                        <div className="products-items-body">
+                            {products.map((item) => (
+                                <div key={item.uuid} className='products-item'>
 
-                                        {item.imageUrl && (
-                                            <img
-                                                src={item.imageUrl}
-                                                alt={item.name}
-                                            />
+                                    <div className="products-item-body">
 
-                                        )}
-                                    </div>
+                                        <div className="products-item-side">
+                                            <div className="products-item-photo">
+                                                {item.imageUrl && (
+                                                    <img
+                                                        src={item.imageUrl}
+                                                        alt={item.name}
+                                                    />
 
-                                    <button className='btn products-item-btn'>
-                                        в корзину
-                                    </button>
-                                </div>
-                                <div className="products-item-info">
-                                    <h1 className="products-item-title">{item.name}</h1>
-                                    <div className='products-item-sub'>
-                                        <span className='products-item-weight'>
-                                            {item.weight.number}
-                                            &nbsp;
-                                            {item.weight.measure}
-                                        </span>
-                                        &nbsp;
-                                        /
-                                        &nbsp;
-                                        <span className='products-item-price'>
-                                            {!!item.price[0] && (<span>{item.price[0]} руб.</span>)}
-                                            &nbsp;
-                                            {item.price[1] < 10
-                                                ? (<span>0{item.price[1]} коп.</span>)
-                                                : (<span>{item.price[1]} коп.</span>)
-                                            }
-                                        </span>
+                                                )}
+                                            </div>
+
+                                            <button className='btn products-item-btn'>
+                                                в корзину
+                                            </button>
+                                        </div>
+
+                                        <div className="products-item-info">
+                                            <h1 className="products-item-title">{item.name}</h1>
+                                            <div className='products-item-sub'>
+                                                <span className='products-item-weight'>
+                                                    {item.weight.number}
+                                                    &nbsp;
+                                                    {item.weight.measure}
+                                                </span>
+                                                &nbsp;
+                                                /
+                                                &nbsp;
+                                                <span className='products-item-price'>
+                                                    {!!item.price[0] && (<span>{item.price[0]} руб.</span>)}
+                                                    &nbsp;
+                                                    {item.price[1] < 10
+                                                        ? (<span>0{item.price[1]} коп.</span>)
+                                                        : (<span>{item.price[1]} коп.</span>)
+                                                    }
+                                                </span>
+                                            </div>
+                                            <div className='products-item-description'>
+                                                {item.body.description && (<p>Описание: {item.body.description}</p>)}
+                                                {item.body.consist && (<p>Состав: {item.body.consist}</p>)}
+                                                {item.body.mfp && (<p>КБЖУ (в 100 гр.): {item.body.mfp}</p>)}
+                                            </div>
+                                            <div className="products-item-bottom">
+                                                <button className='btn products-item-btn products-item-btn-response'>
+                                                    в корзину
+                                                </button>
+                                            </div>
+                                        </div>
+
                                     </div>
-                                    <div className='products-item-description'>
-                                        {item.body.description && (<p>Описание: {item.body.description}</p>)}
-                                        {item.body.consist && (<p>Состав: {item.body.consist}</p>)}
-                                        {item.body.mfp && (<p>КБЖУ (в 100 гр.): {item.body.mfp}</p>)}
-                                    </div>
                                 </div>
-                                <div className="products-item-bottom">
-                                    <button className='btn products-item-btn products-item-btn-response'>
-                                        в корзину
-                                    </button>
-                                </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </div>
-                <div className="products-sidebar">
-                    <div className='products-sidebar-photo' style={{ top: `${topPosition}px` }}>
+            </div>
+
+            <div className="products-sidebar">
+                <div className="container container-nopadding">
+                    <div className='products-sidebar-photo'>
                         <img ref={sideRef} src={side} style={{ transform: `translateY(-${parallax}px)` }} />
                     </div>
                 </div>
             </div>
-        </div>
+        </>
+
+
     )
 
     // return (

@@ -1,0 +1,38 @@
+@import '../../vars';
+@import '../../mixins';
+
+.admin {
+    padding-top: $header-height;
+    padding-bottom: $header-height;
+
+    &-title {
+        font-size: 3.6rem;
+    }
+
+    &-select {
+        color: #000;
+
+        &-wrapper {
+            font-size: 1.8rem;
+        }
+    }
+
+    &-inputs {
+        max-width: 50rem;
+        width: 100%;
+
+        font-size: 1.8rem;
+
+        overflow-wrap: break-word;
+        margin-top: 5rem;
+    }
+
+    &-input {
+        margin-top: 2rem;
+    }
+
+    &-btn {
+        margin-top: 5rem;
+    }
+
+}
