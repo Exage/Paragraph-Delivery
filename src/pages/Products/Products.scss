@@ -10,7 +10,12 @@ $products-padding: 1rem;
 $bp-1: 1060px;
 
 .products {
+    display: flex;
     padding-top: $header-height;
+
+    &.sideLeft {
+        justify-content: flex-end;
+    }
 
     &-items {
         max-width: $products-width;
@@ -37,10 +42,10 @@ $bp-1: 1060px;
     &-item {
         display: flex;
         align-items: flex-start;
-        
+
         max-width: $products-width;
         width: 100%;
-        
+
         margin-bottom: 1.5rem;
 
         @include bp($bp-1) {
@@ -61,7 +66,9 @@ $bp-1: 1060px;
         }
 
         &-side {
-            text-align: center;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
         }
 
         &-photo {
@@ -154,6 +161,16 @@ $bp-1: 1060px;
             width: 100%;
             padding-top: $header-height;
             padding-left: $products-width;
+
+            &-wrapper {
+                background-color: $dark-color;
+                min-height: 100vh;
+            }
+
+            &.sideLeft {
+                padding-left: 0;
+                padding-right: $products-width;
+            }
 
             img {
                 width: 100%;

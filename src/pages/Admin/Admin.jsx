@@ -9,8 +9,9 @@ import TextareaAutosize from 'react-textarea-autosize'
 import './Admin.scss'
 
 import { HomeItems } from '../Home/HomeItems'
+import { Loading } from '../../components/Loading/Loading'
 
-export const Admin = () => {
+export const Admin = (loading) => {
     const [disableInputs, setDisableInputs] = useState(false)
     const [productSelectedOption, setProductSelectedOption] = useState('')
 
@@ -22,7 +23,7 @@ export const Admin = () => {
     const [bodyMfp, setBodyMfp] = useState('')
 
     const [bodyPriceRubles, setBodyPriceRubles] = useState('')
-    const [bodyPriceKopecks, setBodyPriceKopecks] = useState('')
+    const [bodyPriceKopecks, setBodyPriceKopecks] = useState('00')
 
     const [weight, setWeight] = useState('')
     const [weightSelectedOption, setWeightSelectedOption] = useState('гр.')
@@ -62,7 +63,7 @@ export const Admin = () => {
                         mfp: bodyMfp.trim(),
                     },
                     uuid: uuidv4(),
-                    price: [+bodyPriceRubles, +bodyPriceKopecks],
+                    price: [bodyPriceRubles, bodyPriceKopecks],
                     weight: {
                         number: +weight,
                         measure: weightSelectedOption,
@@ -110,6 +111,10 @@ export const Admin = () => {
         setProductSelectedOption(Event.target.value)
     }
 
+    // if (loading) {
+    //     return <Loading text='Adminka Load777' />
+    // }
+
     return (
         <div className='admin'>
             <div className="container">
@@ -130,149 +135,158 @@ export const Admin = () => {
                         </select>
                     </div>
                     <hr />
-
-                    {/* Inputs */}
-                    {(!singleProduct) ? (
-                        <>
-                            <div className="admin-inputs">
-
-                                <h2 style={{ fontSize: '3.6rem' }}>
-                                    products/{productSelectedOption}
-                                </h2>
-                                <div className="admin-input">
-                                    <h1>Название</h1>
-                                    <input
-                                        type="text"
-                                        className='input'
-
-                                        disabled={disableInputs}
-
-                                        value={name}
-                                        onChange={Event => setName(Event.target.value)}
-                                    />
-                                </div>
-                                <div className="admin-input">
-                                    <h1>Информация</h1>
-
-                                    <div className="admin-input">
-                                        <h1>Описание</h1>
-                                        <TextareaAutosize
-                                            className='input'
-                                            minRows={5}
-
-                                            disabled={disableInputs}
-
-                                            value={bodyDescription}
-                                            onChange={Event => setBodyDescription(Event.target.value)}
-                                        />
-                                    </div>
-                                    <div className="admin-input">
-                                        <h1>Состав</h1>
-                                        <TextareaAutosize
-                                            className='input'
-                                            minRows={5}
-
-                                            disabled={disableInputs}
-
-                                            value={bodyConsist}
-                                            onChange={Event => setBodyConsist(Event.target.value)}
-                                        />
-                                    </div>
-                                    <div className="admin-input">
-                                        <h1>КБЖУ</h1>
-                                        <TextareaAutosize
-                                            className='input'
-                                            minRows={5}
-
-                                            disabled={disableInputs}
-
-                                            value={bodyMfp}
-                                            onChange={Event => setBodyMfp(Event.target.value)}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="admin-inputs">
-                                <h1>Цена</h1>
-
-                                <div className="admin-input">
-                                    <h1>руб.</h1>
-                                    <input
-                                        type="text"
-                                        className='input'
-
-                                        disabled={disableInputs}
-
-                                        value={bodyPriceRubles}
-                                        onChange={Event => setBodyPriceRubles(Event.target.value)}
-                                    />
-                                </div>
-                                <div className="admin-input">
-                                    <h1>коп.</h1>
-                                    <input
-                                        type="text"
-                                        className='input'
-
-                                        disabled={disableInputs}
-
-                                        value={bodyPriceKopecks}
-                                        onChange={Event => setBodyPriceKopecks(Event.target.value)}
-                                    />
-                                </div>
-                            </div>
-                            <div className="admin-inputs">
-                                <h1>Вес</h1>
-
-                                <div className="admin-input">
-                                    <h1>Число</h1>
-                                    <input
-                                        type="text"
-                                        className='input'
-
-                                        disabled={disableInputs}
-
-                                        value={weight}
-                                        onChange={Event => setWeight(Event.target.value)}
-                                    />
-                                </div>
-                                <div className="admin-input">
-                                    <select disabled={disableInputs} id='menu' className='admin-select' value={weightSelectedOption} onChange={(Event) => setWeightSelectedOption(Event.target.value)}>
-                                        <option value={'гр.'}>гр.</option>
-                                        <option value={'л.'}>л.</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="admin-input">
-                                <h1>Изображение</h1>
-                                <input
-                                    disabled={disableInputs}
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleImageChange}
-                                />
-                            </div>
-                        </>
+                    {!productSelectedOption ? (
+                        <h1 className='title'>Выбери категорию</h1>
                     ) : (
                         <>
-                            <div className="admin-inputs">
-                                <div className="admin-input">
-                                    <h1>ИМЯ</h1>
-                                    <TextareaAutosize
-                                        className='input'
-                                        minRows={5}
+                            {/* Inputs */}
+                            {(!singleProduct) ? (
+                                <>
+                                    <div className="admin-inputs">
 
-                                        disabled={disableInputs}
+                                        <h2 style={{ fontSize: '3.6rem' }}>
+                                            products/{productSelectedOption}
+                                        </h2>
+                                        <div className="admin-input">
+                                            <h1>Название</h1>
+                                            <input
+                                                type="text"
+                                                className='input'
 
-                                        value={bodyMfp}
-                                        onChange={Event => setBodyMfp(Event.target.value)}
-                                    />
-                                </div>
-                            </div>
+                                                disabled={disableInputs}
+
+                                                value={name}
+                                                onChange={Event => setName(Event.target.value)}
+                                            />
+                                        </div>
+                                        <div className="admin-input">
+                                            <h1>Информация</h1>
+
+                                            <div className="admin-input">
+                                                <h1>Описание</h1>
+                                                <TextareaAutosize
+                                                    className='input'
+                                                    minRows={5}
+
+                                                    disabled={disableInputs}
+
+                                                    value={bodyDescription}
+                                                    onChange={Event => setBodyDescription(Event.target.value)}
+                                                />
+                                            </div>
+                                            <div className="admin-input">
+                                                <h1>Состав</h1>
+                                                <TextareaAutosize
+                                                    className='input'
+                                                    minRows={5}
+
+                                                    disabled={disableInputs}
+
+                                                    value={bodyConsist}
+                                                    onChange={Event => setBodyConsist(Event.target.value)}
+                                                />
+                                            </div>
+                                            <div className="admin-input">
+                                                <h1>КБЖУ</h1>
+                                                <TextareaAutosize
+                                                    className='input'
+                                                    minRows={5}
+
+                                                    disabled={disableInputs}
+
+                                                    value={bodyMfp}
+                                                    onChange={Event => setBodyMfp(Event.target.value)}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="admin-inputs">
+                                        <h1>Цена</h1>
+
+                                        <div className="admin-input">
+                                            <h1>руб.</h1>
+                                            <input
+                                                type="text"
+                                                className='input'
+
+                                                disabled={disableInputs}
+
+                                                value={bodyPriceRubles}
+                                                onChange={Event => setBodyPriceRubles(Event.target.value)}
+                                            />
+                                        </div>
+                                        <div className="admin-input">
+                                            <h1>коп.</h1>
+                                            <input
+                                                type="text"
+                                                className='input'
+
+                                                disabled={disableInputs}
+
+                                                value={bodyPriceKopecks}
+                                                onChange={Event => setBodyPriceKopecks(Event.target.value)}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="admin-inputs">
+                                        <h1>Вес</h1>
+
+                                        <div className="admin-input">
+                                            <h1>Число</h1>
+                                            <input
+                                                type="text"
+                                                className='input'
+
+                                                disabled={disableInputs}
+
+                                                value={weight}
+                                                onChange={Event => setWeight(Event.target.value)}
+                                            />
+                                        </div>
+                                        <div className="admin-input">
+                                            <select disabled={disableInputs} id='menu' className='admin-select' value={weightSelectedOption} onChange={(Event) => setWeightSelectedOption(Event.target.value)}>
+                                                <option value={'гр.'}>гр.</option>
+                                                <option value={'л.'}>л.</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className="admin-input">
+                                        <h1>Изображение</h1>
+                                        <input
+                                            disabled={disableInputs}
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={handleImageChange}
+                                        />
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <div className="admin-inputs">
+                                    <h2 style={{ fontSize: '3.6rem' }}>
+                                            product
+                                            /{productSelectedOption}
+                                        </h2>
+                                        <div className="admin-input">
+                                            <h1>ИМЯ</h1>
+                                            <TextareaAutosize
+                                                className='input'
+                                                minRows={5}
+
+                                                disabled={disableInputs}
+
+                                                value={bodyMfp}
+                                                onChange={Event => setBodyMfp(Event.target.value)}
+                                            />
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+                            {/* Inputs */}
+
+                            <button disabled={disableInputs} className="btn admin-btn">Отправить</button>
                         </>
                     )}
-                    {/* Inputs */}
-
-                    <button disabled={disableInputs} className="btn admin-btn">Отправить</button>
                 </form>
 
             </div>

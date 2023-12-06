@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 
-import { auth } from '../../firebase'
+import { auth, firestore } from '../../firebase'
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth'
 
 import { Loading } from '../../components/Loading/Loading'
+import { doc, getDoc } from 'firebase/firestore'
 
-export const Auth = ({ loading, setLoading, isAuth, setIsAuth, isRegister, setIsRegister }) => {
+export const Auth = ({ loading, setLoading, isAuth, isRegister }) => {
     const [phoneNumber, setPhoneNumber] = useState('')
     const [OTP, setOTP] = useState('')
 
@@ -15,6 +16,8 @@ export const Auth = ({ loading, setLoading, isAuth, setIsAuth, isRegister, setIs
 
     const [disableRequestInputs, setDisableRequestInputs] = useState(false)
     const [disableVerifyInputs, setDisableVerifyInputs] = useState(false)
+
+    const [navigateToRegister, setNavigateToRegister] = useState(false)
 
     const generateRecaptcha = () => {
         if (!window.recaptchaVerifier) {
@@ -56,6 +59,7 @@ export const Auth = ({ loading, setLoading, isAuth, setIsAuth, isRegister, setIs
 
             confirmationResult.confirm(OTP)
                 .then((result) => {
+                    console.log(result)
                     setLoading(true)
                 })
                 .catch((error) => {

@@ -24,6 +24,7 @@ import { NotFound } from './pages/NotFound/NotFound'
 /* Components */
 import { Header } from './components/Header/Header'
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
+import { Loading } from './components/Loading/Loading'
 
 function App() {
 	const [isBurgerOpen, setBurgerOpen] = useState(false)
@@ -31,38 +32,52 @@ function App() {
 	const location = useLocation()
 
 	const [loading, setLoading] = useState(true)
-	const [isAuth, setIsAuth] = useState(false)
-	const [isRegister, setIsRegister] = useState(false)
+	const [isAuth, setIsAuth] = useState(!!localStorage.getItem('isAuth'))
+	const [isRegister, setIsRegister] = useState(!!localStorage.getItem('isRegister'))
 
+	const [phoneNumber, setPhoneNumber] = useState()
+
+	// const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userData')))
+	const [isAdmin, setIsAdmin] = useState(false)
 	const [userData, setUserData] = useState({})
 	const [uid, setUid] = useState('')
 
 	useEffect(() => {
 		const authStateHandler = onAuthStateChanged(auth, (user) => {
 			if (user) {
+				localStorage.setItem('isAuth', true)
 				setIsAuth(true)
+
 				checkUser(user.uid)
 				setUid(user.uid)
 			} else {
+				localStorage.setItem('isAuth', false)
+				localStorage.setItem('isRegister', false)
+
 				setIsAuth(false)
 				setIsRegister(false)
+
 				setLoading(false)
 			}
 		})
 
-		return () => {
+		return (() => {
 			authStateHandler()
-		}
-	}, [loading, isAuth, isRegister])
+		})
+	}, [])
 
 	const checkUser = async (uid) => {
 		const docRef = doc(firestore, 'users', uid)
 		const docSnap = await getDoc(docRef)
 
 		if (docSnap.exists()) {
+			// localStorage.setItem('userData', JSON.stringify(docSnap.data()))
 			setUserData(docSnap.data())
+			setIsAdmin(docSnap.data().isAdmin)
+			localStorage.setItem('isRegister', true)
 			setIsRegister(true)
 		} else {
+			localStorage.setItem('isRegister', false)
 			setIsRegister(false)
 		}
 		setLoading(false)
@@ -104,52 +119,66 @@ function App() {
 
 						isRegister={isRegister}
 						setIsRegister={setIsRegister}
+
+						userData={userData}
+						setUserData={setUserData}
+
+						uid={uid}
+						setUid={setUid}
+
+						setPhoneNumber={setPhoneNumber}
 					/>
 				} />
 
 				<Route path="/register" element={
-					<ProtectedRoute
-						redirectPath="/auth"
-						isAllowed={isAuth}
-					>
-						<Register
-							loading={loading}
-							setLoading={setLoading}
+					<Register
+						loading={loading}
+						setLoading={setLoading}
 
-							isAuth={isAuth}
-							setIsAuth={setIsAuth}
+						isAuth={isAuth}
+						setIsAuth={setIsAuth}
 
-							isRegister={isRegister}
-							setIsRegister={setIsRegister}
+						isRegister={isRegister}
+						setIsRegister={setIsRegister}
 
-							uid={uid}
-						/>
-					</ProtectedRoute>
+						userData={userData}
+						setUserData={setUserData}
 
+						uid={uid}
+
+						auth={auth}
+					/>
 				} />
 
 				<Route index element={
-					<ProtectedRoute
-						redirectPath="/auth"
-						isAllowed={isAuth}
-					>
-						<Home
-							loading={loading}
-							setLoading={setLoading}
+					<Home
+						loading={loading}
+						setLoading={setLoading}
 
-							isAuth={isAuth}
-							setIsAuth={setIsAuth}
+						isAuth={isAuth}
+						setIsAuth={setIsAuth}
 
-							isRegister={isRegister}
-							setIsRegister={setIsRegister}
+						isRegister={isRegister}
+						setIsRegister={setIsRegister}
 
-							userData={userData}
-						/>
-					</ProtectedRoute>
+						userData={userData}
+					/>
 				} />
 
-				<Route path='/bag' element={<Bag />} />
-				<Route path='/addresses' element={<Addresses />} />
+				<Route path='/bag' element={
+					<Bag
+						loading={loading}
+
+						userData={userData}
+						setUserData={setUserData}
+
+						isAuth={isAuth}
+						isRegister={isRegister} 
+
+						uid={uid}
+					/>}
+				/>
+				<Route path='/addresses' element={<Addresses isAuth={isAuth} isRegister={isRegister} />} />
 
 				<Route path='/product/:productid' element={
 					<Product
@@ -163,8 +192,11 @@ function App() {
 						setIsRegister={setIsRegister}
 
 						userData={userData}
-					/>}
-				/>
+						setUserData={setUserData}
+						
+						uid={uid}
+					/>
+				} />
 				<Route path='/products/:productid' element={
 					<Products
 						loading={loading}
@@ -177,23 +209,32 @@ function App() {
 						setIsRegister={setIsRegister}
 
 						userData={userData}
-					/>}
-				/>
+						setUserData={setUserData}
+						uid={uid}
+					/>
+				} />
 
 				<Route
 					path="admin"
 					element={
 						<ProtectedRoute
-							redirectPath="/*"
-							isAllowed={userData.isAdmin}
+							redirectPath="/"
+							isAllowed={(isAdmin)}
 						>
-							<Admin />
+							<Admin loading={loading} />
 						</ProtectedRoute>
 					}
 				/>
 
-				<Route path='*' element={<NotFound />} />
+				<Route path='*' element={
+					<NotFound
+						userData={userData}
+						isAuth={isAuth}
+						isRegister={isRegister}
+					/>
+				} />
 			</Routes>
+
 			<div id='recaptcha-container' style={{ display: 'none' }}></div>
 		</div>
 	)

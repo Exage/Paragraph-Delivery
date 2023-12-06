@@ -10,19 +10,19 @@ import { Loading } from '../../components/Loading/Loading'
 
 export const Home = ({ loading, setLoading, isAuth, setIsAuth, isRegister, setIsRegister, userData }) => {
 
-    // if (loading) {
-    //     return <Loading text='Load Home' />
-    // }
+    if (loading) {
+        return <Loading text='Load Home' />
+    }
 
-    // if (!isAuth) {
-    //     console.log('Not Auth')
-    //     return <Navigate to='/auth' />
-    // }
+    if (!isAuth) {
+        console.log('Not Auth')
+        return <Navigate to='/auth' />
+    }
 
-    // if (!isRegister) {
-    //     console.log('Not Register')
-    //     return <Navigate to='/register' />
-    // }
+    if (!isRegister) {
+        console.log('Not Register')
+        return <Navigate to='/register' />
+    }
 
     return (
         <div className='home'>

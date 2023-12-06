@@ -25,6 +25,15 @@
             font-weight: 400;
 
             color: $sec-text-color;
+
+            &Placeholder {
+                display: block;
+
+                width: 10rem;
+                height: 2.4rem;
+
+                background-color: $sec-text-color;
+            }
         }
 
         &Name {

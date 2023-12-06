@@ -90,6 +90,7 @@ $body-width: 76rem;
         &-preview {
             display: flex;
             width: 100%;
+            height: 40.5rem;
             background-color: $dark-color;
 
             img {
@@ -114,6 +115,7 @@ $body-width: 76rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-direction: column;
 
             padding: 0;
             border-radius: 0;

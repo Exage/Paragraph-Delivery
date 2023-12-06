@@ -23,7 +23,7 @@ export const User = ({ closeBurger, userData }) => {
                 <img src={userLogo} />
             </div>
             <h3 className={styles.headerUserName}>
-                {userData.name}
+                {userData.name ? userData.name : <span className={styles.headerUserNamePlaceholder}></span>}
             </h3>
         </button>
     )

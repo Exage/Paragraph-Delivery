@@ -6,24 +6,31 @@ import { firestore } from '../../firebase'
 
 import { Loading } from '../../components/Loading/Loading'
 
-export const Register = ({ loading, setLoading, isAuth, isRegister, setIsRegister, uid }) => {
-    const [nameForm, setNameForm] = useState(false)
-
+export const Register = ({ loading, isAuth, isRegister, setIsRegister, uid, setUserData, auth }) => {
     const [name, setName] = useState('')
-
+    
     const [disableNameInputs, setDisableNameInputs] = useState(false)
 
     const addUser = async () => {
         try {
-            await setDoc(doc(firestore, 'users', uid), {
+            const data = {
                 uid: uid,
                 name: name,
-                isAdmin: false
-            })
+                isAdmin: false,
+                bag: [],
+                phoneNumber: auth.currentUser.phoneNumber,
+                address: ''
+            }
+
+            await setDoc(doc(firestore, 'users', uid), data)
 
             console.log("Document written")
+            
+            // localStorage.setItem('userData', JSON.stringify(data))
+            setUserData(data)
+
+            localStorage.setItem('isRegister', true)
             setIsRegister(true)
-            setLoading(true)
         } catch (e) {
             console.error("Error adding document: ", e)
         } finally {
@@ -38,16 +45,16 @@ export const Register = ({ loading, setLoading, isAuth, isRegister, setIsRegiste
         addUser(uid)
     }
 
+    if (loading) {
+        return <Loading text="Load Register" />
+    }
+
     if (!isAuth && !isRegister) {
         return <Navigate to='/auth' />
     }
 
     if (isAuth && isRegister) {
         return <Navigate to='/' />
-    }
-
-    if (loading) {
-        return <Loading text="Load Register" />
     }
 
     return (

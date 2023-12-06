@@ -1,0 +1,254 @@
+@import '../../vars';
+@import '../../mixins';
+
+.bag {
+    padding-top: $header-height + 2rem;
+
+    &-container {
+        // max-width: 122rem;
+    }
+
+    &-header {
+        display: flex;
+        align-items: center;
+        // position: relative;
+
+        &-title {
+            display: flex;
+            align-items: center;
+            position: relative;
+
+            font-size: 3.6rem;
+
+            color: $dark-color;
+
+            &-icon {
+                margin-right: 1rem;
+            }
+
+            &::after {
+                content: "";
+                display: none;
+                position: absolute;
+                top: calc(100% - 3px);
+                left: 0;
+
+                width: 100%;
+                height: 3px;
+
+                background-color: $dark-color;
+            }
+
+            &-clickable {
+                cursor: pointer;
+
+                &:hover::after {
+                    display: inline-block;
+                }
+            }
+
+            &-underline {
+                &::after {
+                    display: inline-block;
+                }
+            }
+        }
+
+        &-search {
+            display: flex;
+            justify-self: center;
+
+            margin-left: auto;
+
+            &-edit {
+                display: flex;
+                flex-direction: column;
+
+                padding: 1.5rem;
+
+                border-radius: 1.5rem;
+
+                color: $text-color;
+                background-color: $sec-bg-color;
+
+                box-shadow: 0px 10px 10px rgba(#000, 15%);
+
+                &-overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+
+                    width: 100%;
+                    height: 100vh;
+
+                    padding-top: $header-height + 2rem;
+
+                    background-color: rgba($dark-color, 75%);
+                }
+
+                &-span {
+                    font-size: 1.8rem;
+                    margin-top: 1rem;
+                }
+            }
+
+            &-form {
+                display: flex;
+                align-items: center;
+
+                &>&-title {
+                    font-size: 2.4rem;
+
+                    color: $sec-text-color;
+
+                    margin-left: 2rem;
+                    padding-right: 1rem;
+
+                    &:first-child {
+                        margin-left: 0;
+                    }
+                }
+
+                &-controls {
+                    margin-left: auto;
+
+                    &>.btn {
+                        margin-right: 1rem;
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+
+            &-inputs {
+                position: relative;
+            }
+
+            &-input {
+                padding: 1rem;
+                text-decoration-line: none;
+
+                &-address {
+                    width: 36rem;
+                }
+
+                &-house,
+                &-flat {
+                    width: 10rem;
+                }
+            }
+
+            &-results {
+                position: absolute;
+                top: 100%;
+                left: 0;
+
+                max-height: 20.8rem;
+                overflow: auto;
+
+                background-color: $dark-color;
+                color: $text-color;
+
+                border-radius: 1.5rem;
+
+                &-items {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                &-item {
+                    min-width: 28rem;
+
+                    font-size: 2.4rem;
+                    padding: 1rem 1.5rem;
+
+                    cursor: pointer;
+
+                    &:hover,
+                    &:focus {
+                        background-color: $sec-text-color;
+                    }
+                }
+            }
+        }
+    }
+
+    &-items {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        row-gap: 10rem;
+
+        margin-top: 6rem;
+    }
+
+    &-item {
+        max-width: 38rem;
+        width: 100%;
+        display: flex;
+
+        &-photo {
+            max-width: 15.5rem;
+            width: 100%;
+            height: 15.5rem;
+
+            border-radius: .6rem;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        &-body {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+
+            font-size: 2.4rem;
+
+            padding-left: 2.5rem;
+
+            &-title {
+                // font-size: 2.4rem;
+            }
+
+            &-controls {
+                display: flex;
+                border-radius: 1rem;
+
+                margin-top: 1rem;
+
+                background-color: $sec-bg-color;
+
+                &-btn {
+                    width: 3.6rem;
+                    text-align: center;
+                    line-height: 0.4;
+
+                    cursor: pointer;
+                }
+
+                &-factor {
+                    max-width: 4rem;
+                    width: 100%;
+                    text-align: center;
+                    line-height: 1.4;
+
+                    border: 1px solid $border-color;
+                    border-top: none;
+                    border-bottom: none;
+                }
+            }
+
+            &-price {
+                margin-top: auto;
+            }
+        }
+    }
+}
