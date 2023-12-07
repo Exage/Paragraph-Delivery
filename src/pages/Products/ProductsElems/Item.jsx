@@ -25,7 +25,7 @@ export const Item = ({ item, userData, setUserData, uid }) => {
         setDisableBtn(true)
 
         const docRef = doc(firestore, 'users', uid)
-        const newData = { ...userData, bag: [...userData.bag, { item: item, factor: 1}] }
+        const newData = { ...userData, bag: [...userData.bag, { item: item, factor: 1 }] }
 
         await setDoc(docRef, newData)
         setUserData(newData)
@@ -48,24 +48,25 @@ export const Item = ({ item, userData, setUserData, uid }) => {
                             />
                         )}
                     </div>
-                    {isInBag ? (
-                        <Link
-                            to='/bag'
-                            className='btn products-item-btn'
-                            disabled={disableBtn}
-                        >
-                            к корзине
-                        </Link>
-                    ) : (
-                        <button
-                            onClick={addToBag}
-                            className='btn products-item-btn'
-                            disabled={disableBtn}
-                        >
-                            в корзину
-                        </button>
-                    )}
-
+                    <div className="products-item-side-bottom">
+                        {isInBag ? (
+                            <Link
+                                to='/bag'
+                                className='btn products-item-btn'
+                                disabled={disableBtn}
+                            >
+                                к корзине
+                            </Link>
+                        ) : (
+                            <button
+                                onClick={addToBag}
+                                className='btn products-item-btn'
+                                disabled={disableBtn}
+                            >
+                                в корзину
+                            </button>
+                        )}
+                    </div>
                 </div>
 
                 <div className="products-item-info">
@@ -121,7 +122,7 @@ export const Item = ({ item, userData, setUserData, uid }) => {
                         {isInBag ? (
                             <Link
                                 to='/bag'
-                                className='btn products-item-btn'
+                                className='btn products-item-btn-response products-item-btn '
                                 disabled={disableBtn}
                             >
                                 к корзине

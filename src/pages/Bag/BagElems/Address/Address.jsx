@@ -17,7 +17,13 @@ export const Address = ({ userData, setUserData, uid }) => {
                     Ваш адрес:
                 </span>
 
-                &nbsp;{userData.address}
+                <span className='bag-header-address'>
+                    {(userData.address !== '') ? (
+                        userData.address
+                    ) : (
+                        'Не Указан'
+                    )}
+                </span>
             </h1>
             {showEdit && (
                 <AddressEdit
@@ -25,7 +31,7 @@ export const Address = ({ userData, setUserData, uid }) => {
 
                     userData={userData}
                     setUserData={setUserData}
-                
+
                     uid={uid}
                 />
             )}

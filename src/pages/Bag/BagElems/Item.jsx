@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
 import { firestore } from '../../../firebase'
 
-export const Item = ({ userData, setUserData, bagItem, bagItemPos, setGlobalCost, uid }) => {
+export const Item = ({ userData, setUserData, bagItem, bagItemPos, setGlobalCost, uid, placeholder }) => {
     const { name, imageUrl, price } = bagItem.item
     let [factor, setFactor] = useState(bagItem.factor)
 
@@ -14,13 +14,11 @@ export const Item = ({ userData, setUserData, bagItem, bagItemPos, setGlobalCost
 
     useEffect(() => {
         if (isMounted.current) {
-            console.log('Component mounted')
             calculatePrice(factor)
             calcGlobalPrice(factor)
         }
 
         return () => {
-            console.log('Component unmounted')
             isMounted.current = false
         }
     }, [])
@@ -50,7 +48,6 @@ export const Item = ({ userData, setUserData, bagItem, bagItemPos, setGlobalCost
     const addFactor = async () => {
         setDisableBtn(true)
         factor += 1
-        console.log(factor)
 
         const docRef = doc(firestore, 'users', uid)
         userData.bag[bagItemPos].factor = factor
@@ -91,7 +88,6 @@ export const Item = ({ userData, setUserData, bagItem, bagItemPos, setGlobalCost
     }
 
     const deleteItem = async (uuid) => {
-        console.log(factor)
         const docRef = doc(firestore, 'users', uid)
         const newBag = userData.bag.filter(item => item.item.uuid !== uuid)
         const newData = { ...userData, bag: newBag }
@@ -103,30 +99,6 @@ export const Item = ({ userData, setUserData, bagItem, bagItemPos, setGlobalCost
     }
 
     return (
-        // <div className='bag-item'>
-        //     <div className="bag-item-photo">
-        //         <img src={imageUrl} />
-        //     </div>
-        //     <div className="bag-item-body">
-        //         <h1 className='bag-item-price'>
-        //             {priceArr[0] && (
-        //                 <span>{priceArr[0]} руб.</span>
-        //             )}
-
-        //             &nbsp;
-
-        //             {priceArr[1] && (
-        //                 <span>{priceArr[1]} коп.</span>
-        //             )}
-        //         </h1>
-
-        //         <div className="bag-item-btns">
-        //             <button onClick={addFactor} className="btn bag-item-btn bag-item-btn-increment" disabled={disableBtn}>+</button>
-        //             <button onClick={subFactor} className="btn bag-item-btn bag-item-btn-decrement" disabled={disableBtn}>-</button>
-        //         </div>
-
-        //     </div>
-        // </div>
         <div className="bag-item">
             <div className="bag-item-photo">
                 <img src={imageUrl} />
@@ -135,10 +107,11 @@ export const Item = ({ userData, setUserData, bagItem, bagItemPos, setGlobalCost
                 <h1 className='bag-item-body-title'>
                     {name}
                 </h1>
-                <div className="bag-item-body-controls">
+                <div className={disableBtn ? "bag-title-price bag-item-body-controls bag-item-body-controls-disabled" : "bag-title-price bag-item-body-controls"}>
                     <button
                         className='bag-item-body-controls-btn bag-item-body-controls-btn-increment'
                         onClick={addFactor}
+                        disabled={disableBtn}
                     >
                         +
                     </button>
@@ -148,24 +121,29 @@ export const Item = ({ userData, setUserData, bagItem, bagItemPos, setGlobalCost
                     <button
                         className='bag-item-body-controls-btn bag-item-body-controls-btn-decrement'
                         onClick={subFactor}
+                        disabled={disableBtn}
                     >
                         -
                     </button>
                 </div>
-                <div className="bag-item-body-price">
-                    Цена: 
-
-                    &nbsp;
-
-                    {priceArr[0] && (
-                        <span>{priceArr[0]} руб.</span>
-                    )}
-
-                    &nbsp;
-
-                    {priceArr[1] && (
-                        <span>{priceArr[1]} коп.</span>
-                    )}
+                <div className="bag-title bag-item-body-price">
+                    <div className="price-title">
+                        Цена:&nbsp;
+                    </div>
+                    <div style={{ wordBreak: 'break-word' }}>
+                        {priceArr[0] && (
+                            <>
+                                <span className='bag-title-price'>{priceArr[0]}</span>&nbsp;
+                            </>
+                        )}
+                        руб.&nbsp;
+                        {priceArr[1] && (
+                            <>
+                                <span className='bag-title-price'>{priceArr[1]}</span>&nbsp;
+                            </>
+                        )}
+                        коп.
+                    </div>
                 </div>
             </div>
         </div>

@@ -8,6 +8,8 @@ $products-width: 73rem;
 $products-padding: 1rem;
 
 $bp-1: 1060px;
+$bp-2: 575px;
+$bp-3: 320px;
 
 .products {
     display: flex;
@@ -19,9 +21,9 @@ $bp-1: 1060px;
 
     &-items {
         max-width: $products-width;
-        padding: 0 $products-padding;
         width: 100%;
 
+        padding: 0 $products-padding;
         padding-bottom: 3rem;
 
         @include bp($bp-1) {
@@ -63,12 +65,26 @@ $bp-1: 1060px;
 
         &-body {
             display: flex;
+            width: 100%;
+
+            @include bp($bp-2) {
+                max-width: 30rem;
+                margin: 0 auto;
+                flex-direction: column;
+            }
         }
 
         &-side {
             display: flex;
             align-items: center;
             flex-direction: column;
+
+            &-bottom {
+                margin-top: 1.5rem;
+                @include bp($bp-1) {
+                    display: none;
+                }
+            }
         }
 
         &-photo {
@@ -80,6 +96,16 @@ $bp-1: 1060px;
 
             background-color: $dark-color;
 
+            @include bp($bp-2) {
+                max-width: 30rem;
+                width: 100%;
+                height: 30rem;
+            }
+
+            @include bp($bp-3) {
+                height: calc(100vw - 2rem);
+            }
+
             img {
                 width: 100%;
                 height: 100%;
@@ -88,25 +114,12 @@ $bp-1: 1060px;
         }
 
         &-btn {
-            margin-top: 1.5rem;
             box-shadow: 6px 6px 10px rgba(#000, 0.25);
 
             @include bp($bp-1) {
-                display: none;
-            }
-
-            &-response {
-                @include bp($bp-1) {
-                    display: block;
-
-                    max-width: 30rem;
-                    width: 100%;
-
-                    font-size: 2.4rem;
-                    padding: 1rem 0;
-
-                    margin-top: 2rem;
-                }
+                max-width: 30rem;
+                width: 100%;
+                padding: 0.5rem 4rem;
             }
         }
 
@@ -114,12 +127,26 @@ $bp-1: 1060px;
             max-width: 50rem;
             width: 100%;
             padding-left: 2rem;
+
+            @include bp($bp-1) {
+                max-width: 100%;
+            }
+
+            @include bp($bp-2) {
+                margin-top: 2rem;
+                padding-left: 0;
+            }
         }
 
         &-title {
             font-size: 4rem;
             line-height: 1;
             text-decoration: underline;
+            word-break: break-all;
+
+            @include bp($bp-3) {
+                font-size: 3.6rem;
+            }
         }
 
         &-sub {
@@ -128,15 +155,20 @@ $bp-1: 1060px;
 
         &-description {
             font-size: 1.8rem;
+
+            @include bp($bp-1) {
+                display: none;
+            }
         }
 
         &-bottom {
             display: none;
             width: 100%;
 
+            margin-top: 1.5rem;
+
             @include bp($bp-1) {
                 display: flex;
-                justify-content: c;
             }
         }
     }
