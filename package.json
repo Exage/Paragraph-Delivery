@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "Paragraph-Delivery",
+  "homepage": "https://exage.github.io/Paragraph-Delivery/",
   "scripts": {
     "dev": "vite",
     "predeploy": "npm run build",
