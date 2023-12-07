@@ -21,6 +21,7 @@ export const Products = ({ setLoading, isAuth, isRegister, userData, setUserData
     useEffect(() => {
         console.log('Start Loading')
         setLoading(true)
+        setProduct(null)
         const fetchData = async () => {
             console.log('Start Fetch')
             try {
@@ -47,9 +48,7 @@ export const Products = ({ setLoading, isAuth, isRegister, userData, setUserData
             }
         }
 
-        return (() => {
-            fetchData()
-        })
+        fetchData()
     }, [params.productid])
 
     if (!isAuth) {
@@ -69,12 +68,12 @@ export const Products = ({ setLoading, isAuth, isRegister, userData, setUserData
                     <div className="container container-nopadding">
                         <div className={(isSideLeft) ? 'products sideLeft' : 'products'}>
                             <Items
-                                isSideLeft={isSideLeft} 
+                                isSideLeft={isSideLeft}
                                 product={product}
 
                                 userData={userData}
                                 setUserData={setUserData}
-                                
+
                                 uid={uid}
                             />
                         </div>
@@ -82,7 +81,7 @@ export const Products = ({ setLoading, isAuth, isRegister, userData, setUserData
 
                     <Sidebar
                         product={product}
-                        isSideLeft={isSideLeft} 
+                        isSideLeft={isSideLeft}
                     />
                 </>
             ) : (
