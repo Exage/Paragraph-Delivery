@@ -19,14 +19,20 @@ export const Products = ({ setLoading, isAuth, isRegister, userData, setUserData
     const [isSideLeft, setSideLeft] = useState(false)
 
     useEffect(() => {
+        console.log('Start Loading')
         setLoading(true)
         const fetchData = async () => {
+            console.log('Start Fetch')
             try {
+                console.log('Start Try')
                 const docRef = doc(firestore, 'products', params.productid)
+                console.log('Start Get Doc')
                 const docSnap = await getDoc(docRef)
+                console.log('End Doc Snap')
 
                 if (docSnap.exists) {
                     const productData = docSnap.data()
+                    console.log(productData)
 
                     setProduct(productData)
                     setSideLeft(productData.isSideLeft)

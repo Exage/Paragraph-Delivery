@@ -22,6 +22,7 @@ export const Product = ({ loading, setLoading, isAuth, setIsAuth, isRegister, se
 
                 if (docSnap.exists) {
                     const productData = docSnap.data()
+                    console.log(productData)
                     setProduct(prevProduct => ({ ...prevProduct, ...productData }))
                 } else {
                     console.log('Документ не найден')

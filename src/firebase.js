@@ -9,7 +9,8 @@ const firebaseConfig = {
     projectId: "paragraph-delivery",
     storageBucket: "paragraph-delivery.appspot.com",
     messagingSenderId: "712240151592",
-    appId: "1:712240151592:web:e30fe167745da6f5edc91d"
+    appId: "1:712240151592:web:e30fe167745da6f5edc91d",
+    databaseLogging: true
 }
 
 export const app = initializeApp(firebaseConfig)
