@@ -29,7 +29,7 @@ export const Header = ({ isAdmin, isBurgerOpen, setBurgerOpen, toggleBurger, clo
 
         return () => {
             window.removeEventListener('resize', checkWidth)
-        }
+        };
     }, [])
 
     const handleOverlayClick = (event) => {

@@ -113,6 +113,8 @@
         max-width: 40rem;
         width: 100%;
 
+        padding-top: $header-height;
+        
         overflow: auto;
 
         background-color: $sec-bg-color;
@@ -138,7 +140,7 @@
             overflow: hidden;
 
             width: 100%;
-            height: calc(100vh - $header-height);
+            height: 100vh;
 
             visibility: hidden;
             opacity: 0;
