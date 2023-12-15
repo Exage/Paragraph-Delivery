@@ -23,10 +23,11 @@ export const Header = ({ isAdmin, isBurgerOpen, setBurgerOpen, toggleBurger, clo
             }
         }
 
+        checkWidth()
+
         window.addEventListener('resize', checkWidth)
 
         return () => {
-            checkWidth()
             window.removeEventListener('resize', checkWidth)
         }
     }, [])
@@ -53,6 +54,8 @@ export const Header = ({ isAdmin, isBurgerOpen, setBurgerOpen, toggleBurger, clo
             </header>
         )
     }
+
+    console.log(isTablet)
 
     if (isTablet) {
         return (
@@ -129,7 +132,7 @@ export const Header = ({ isAdmin, isBurgerOpen, setBurgerOpen, toggleBurger, clo
 
                             isBurgerOpen={isBurgerOpen}
                             setBurgerOpen={setBurgerOpen}
-                            
+
                             userData={userData}
                         />
                     </div>
