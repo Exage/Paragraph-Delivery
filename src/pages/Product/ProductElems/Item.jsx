@@ -51,9 +51,12 @@ export const Item = ({ item, userData, setUserData, uid }) => {
                         &nbsp;
                         <span>
                             {!!item.price[0] && item.price[0]}
-                            {!!item.price[1] && item.price[1]}
                             &nbsp;
                             руб.
+                            {/* &nbsp;
+                            {!!item.price[1] && item.price[1]}
+                            &nbsp;
+                            коп. */}
                         </span>
                     </div>
                     <span>
@@ -73,9 +76,12 @@ export const Item = ({ item, userData, setUserData, uid }) => {
                         &nbsp;
                         <span>
                             {!!item.price[0] && item.price[0]}
-                            {!!item.price[1] && item.price[1]}
                             &nbsp;
                             руб.
+                            {/* &nbsp;
+                            {!!item.price[1] && item.price[1]}
+                            &nbsp;
+                            коп. */}
                         </span>
                     </div>
                 </button>

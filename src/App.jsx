@@ -10,7 +10,7 @@ import './App.scss'
 /* Pages */
 import { Home } from './pages/Home/Home'
 import { Auth } from './pages/Auth/Auth'
-import { Register } from './pages/Register/Register'
+import { Register } from './pages/Auth/Register'
 import { Bag } from './pages/Bag/Bag'
 import { Addresses } from './pages/Addresses/Addresses'
 
@@ -24,7 +24,6 @@ import { NotFound } from './pages/NotFound/NotFound'
 /* Components */
 import { Header } from './components/Header/Header'
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
-import { Loading } from './components/Loading/Loading'
 
 function App() {
 	const [isBurgerOpen, setBurgerOpen] = useState(false)
@@ -95,17 +94,32 @@ function App() {
 		setBurgerOpen(false)
 	}
 
+
+    useEffect(() => {
+		if (isBurgerOpen) {
+			document.body.classList.add('no-scroll')
+		} else {
+			document.body.classList.remove('no-scroll')
+		}
+	}, [isBurgerOpen])
+
 	const isAuthPage = !['/auth', '/register'].includes(location.pathname)
 
 	return (
 		<div className="App">
 			{isAuthPage && (
 				<Header
+					isAdmin={isAdmin}
+
 					isBurgerOpen={isBurgerOpen}
+					setBurgerOpen={setBurgerOpen}
 					toggleBurger={toggleBurger}
 					closeBurger={closeBurger}
 
 					userData={userData}
+
+					loading={loading}
+					setLoading={setLoading}
 				/>
 			)}
 			<Routes>
@@ -115,18 +129,7 @@ function App() {
 						setLoading={setLoading}
 
 						isAuth={isAuth}
-						setIsAuth={setIsAuth}
-
 						isRegister={isRegister}
-						setIsRegister={setIsRegister}
-
-						userData={userData}
-						setUserData={setUserData}
-
-						uid={uid}
-						setUid={setUid}
-
-						setPhoneNumber={setPhoneNumber}
 					/>
 				} />
 
@@ -221,7 +224,7 @@ function App() {
 							redirectPath="/"
 							isAllowed={(isAdmin)}
 						>
-							<Admin loading={loading} />
+							<Admin isAuth={isAuth} isRegister={isRegister} loading={loading} />
 						</ProtectedRoute>
 					}
 				/>

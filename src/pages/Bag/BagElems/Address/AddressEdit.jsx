@@ -89,11 +89,11 @@ export const AddressEdit = ({ setShowEdit, userData, setUserData, uid }) => {
                         >
                             Адреса*:
                         </label>
-                        <div className="bag-header-search-inputs-address">
+                        <div className="bag-header-search-inputs bag-header-search-inputs-address">
                             <div className="bag-header-search-inputs">
                                 <input
                                     type="text"
-                                    placeholder={'Ваш Адрес'}
+                                    placeholder={'Ваш Адрес*'}
 
                                     id='bag-header-search-input-address'
 
@@ -125,11 +125,11 @@ export const AddressEdit = ({ setShowEdit, userData, setUserData, uid }) => {
                         <label className='bag-header-search-form-title' htmlFor="bag-header-search-input-house">
                             Дом*:
                         </label>
-                        <div className="bag-header-search-inputs-house">
+                        <div className="bag-header-search-inputs bag-header-search-inputs-house">
                             <div className="bag-header-search-inputs">
                                 <input
                                     type="text"
-                                    placeholder={'Дом'}
+                                    placeholder={'Дом*'}
 
                                     id='bag-header-search-input-house'
 
@@ -141,14 +141,14 @@ export const AddressEdit = ({ setShowEdit, userData, setUserData, uid }) => {
                                 />
                             </div>
                         </div>
-                        <label className='bag-header-search-form-title' htmlFor="bag-header-search-input-flat">
+                        <label className='bag-header-search-inputs bag-header-search-form-title' htmlFor="bag-header-search-input-flat">
                             Кв.:
                         </label>
-                        <div className="bag-header-search-inputs-flat">
+                        <div className="bag-header-search-inputs bag-header-search-inputs-flat">
                             <div className="bag-header-search-inputs">
                                 <input
                                     type="text"
-                                    placeholder={'Дом'}
+                                    placeholder={'Кв.'}
 
                                     id='bag-header-search-input-flat'
 
@@ -163,12 +163,12 @@ export const AddressEdit = ({ setShowEdit, userData, setUserData, uid }) => {
                         <div className="bag-header-search-form-controls">
                             <button
                                 onClick={handleSave}
-                                className='btn'
+                                className='btn bag-header-search-form-controls-btn'
 
                                 disabled={!isAddressComplete}>V</button>
                             <button
                                 onClick={handleClose}
-                                className='btn'
+                                className='btn bag-header-search-form-controls-btn'
                                 disabled={disableAll}
                             >X</button>
                         </div>

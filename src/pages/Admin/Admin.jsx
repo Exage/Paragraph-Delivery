@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { arrayUnion, collection, doc, getDoc, updateDoc } from 'firebase/firestore'
+import { Navigate } from 'react-router-dom'
+import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { uploadBytes, getDownloadURL, ref } from 'firebase/storage'
 import { v4 as uuidv4 } from 'uuid'
 import { firestore, storage } from '../../firebase'
@@ -11,7 +12,7 @@ import './Admin.scss'
 import { HomeItems } from '../Home/HomeItems'
 import { Loading } from '../../components/Loading/Loading'
 
-export const Admin = (loading) => {
+export const Admin = ({ isAuth, isRegister, loading }) => {
     const [disableInputs, setDisableInputs] = useState(false)
     const [productSelectedOption, setProductSelectedOption] = useState('')
 
@@ -48,6 +49,20 @@ export const Admin = (loading) => {
         return (() => {
         })
     }, [productSelectedOption])
+
+    if (!isAuth) {
+        console.log('Not Auth')
+        return <Navigate to='/auth' />
+    }
+
+    if (!isRegister) {
+        console.log('Not Register')
+        return <Navigate to='/register' />
+    }
+
+    if (loading) {
+        return <Loading />
+    }
 
     const sendData = async () => {
         try {

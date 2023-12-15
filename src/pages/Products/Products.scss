@@ -142,9 +142,9 @@ $bp-3: 320px;
             font-size: 4rem;
             line-height: 1;
             text-decoration: underline;
-            word-break: break-all;
+            word-break: break-word;
 
-            @include bp($bp-3) {
+            @include bp($bp-2) {
                 font-size: 3.6rem;
             }
         }
@@ -154,10 +154,38 @@ $bp-3: 320px;
         }
 
         &-description {
+            display: block;
             font-size: 1.8rem;
+            margin-top: 0.5rem;
 
             @include bp($bp-1) {
                 display: none;
+                margin-top: 1rem;
+
+                &-show {
+                    display: block;
+                }
+            }
+
+            &-btn {
+                display: none;
+                font-size: 1.8rem;
+                margin-top: 1rem;
+
+                text-decoration: underline;
+                cursor: pointer;
+
+                @include bp($bp-1) {
+                    display: block;
+                }
+            }
+
+            & > p {
+                margin-bottom: 1rem;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
             }
         }
 
@@ -165,7 +193,7 @@ $bp-3: 320px;
             display: none;
             width: 100%;
 
-            margin-top: 1.5rem;
+            margin-top: 3rem;
 
             @include bp($bp-1) {
                 display: flex;

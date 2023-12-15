@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
 
-import { firestore, storage } from '../../firebase'
-import { collection, doc, getDoc } from 'firebase/firestore'
-import { getDownloadURL, getStorage, ref } from 'firebase/storage'
+import { firestore } from '../../firebase'
+import { doc, getDoc } from 'firebase/firestore'
 
 import './Products.scss'
 
@@ -19,22 +18,15 @@ export const Products = ({ setLoading, isAuth, isRegister, userData, setUserData
     const [isSideLeft, setSideLeft] = useState(false)
 
     useEffect(() => {
-        console.log('Start Loading')
         setLoading(true)
         setProduct(null)
         const fetchData = async () => {
-            console.log('Start Fetch')
             try {
-                console.log('Start Try')
                 const docRef = doc(firestore, 'products', params.productid)
-                console.log('Start Get Doc')
                 const docSnap = await getDoc(docRef)
-                console.log('End Doc Snap')
 
                 if (docSnap.exists) {
                     const productData = docSnap.data()
-                    console.log(productData)
-
                     setProduct(productData)
                     setSideLeft(productData.isSideLeft)
                 } else {
@@ -61,6 +53,10 @@ export const Products = ({ setLoading, isAuth, isRegister, userData, setUserData
         return <Navigate to='/register' />
     }
 
+    // if (true) {
+    //     return <Loading />
+    // }
+
     return (
         <>
             {product ? (
@@ -86,9 +82,7 @@ export const Products = ({ setLoading, isAuth, isRegister, userData, setUserData
                 </>
             ) : (
                 <div className="container container-nopadding">
-                    <div className="products">
-                        <Loading />
-                    </div>
+                    <Loading />
                 </div>
             )}
         </>

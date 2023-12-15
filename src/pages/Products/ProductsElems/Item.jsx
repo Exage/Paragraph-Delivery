@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { arrayUnion, doc, setDoc, updateDoc } from 'firebase/firestore'
+import { doc, setDoc } from 'firebase/firestore'
 import { firestore } from '../../../firebase'
 
 export const Item = ({ item, userData, setUserData, uid }) => {
     const [disableBtn, setDisableBtn] = useState(false)
     const [isInBag, setInBag] = useState(false)
+
+    const [showProductDescription, setShowProductDescription] = useState(false)
 
     useEffect(() => {
         const checkInBag = () => {
@@ -82,17 +84,6 @@ export const Item = ({ item, userData, setUserData, uid }) => {
                         &nbsp;
                         <span className='products-item-price'>
 
-                            {/* {!!item.price[0] && (
-                                <span>{item.price[0]} руб.</span>
-                            )}
-
-                            &nbsp;
-
-                            {item.price[1] < 10
-                                ? (<span>0{item.price[1]} коп.</span>)
-                                : (<span>{item.price[1]} коп.</span>)
-                            } */}
-
                             {item.price[0] && (
                                 <span>{item.price[0]} руб.</span>
                             )}
@@ -103,8 +94,13 @@ export const Item = ({ item, userData, setUserData, uid }) => {
 
                         </span>
                     </div>
-                    <div className='products-item-description'>
 
+                    <div className={(
+                        showProductDescription
+                            ? 'products-item-description products-item-description-show'
+                            : 'products-item-description'
+                    )}
+                    >
                         {item.body.description && (
                             <p>Описание: {item.body.description}</p>
                         )}
@@ -116,8 +112,17 @@ export const Item = ({ item, userData, setUserData, uid }) => {
                         {item.body.mfp && (
                             <p>КБЖУ (в 100 гр.): {item.body.mfp}</p>
                         )}
-
                     </div>
+
+                    <button
+                        className='products-item-description-btn'
+                        onClick={() => setShowProductDescription(!showProductDescription)}>
+                        {showProductDescription ? (
+                            <span>Скрыть</span>
+                        ) : (
+                            <span>Подробнее...</span>
+                        )}
+                    </button>
                     <div className="products-item-bottom">
                         {isInBag ? (
                             <Link
@@ -137,9 +142,10 @@ export const Item = ({ item, userData, setUserData, uid }) => {
                             </button>
                         )}
                     </div>
-                </div>
 
+                </div>
             </div>
+
         </div>
     )
 }

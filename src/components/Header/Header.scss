@@ -25,6 +25,11 @@
 
         position: relative;
 
+        &-loading {
+            display: flex;
+            justify-content: center;
+        }
+
         &-left-side,
         &-right-side {
             display: flex;
@@ -55,6 +60,12 @@
 
             @include bp($bp-header-1) {
                 width: calc(100% - 8.8rem);
+            }
+
+            &-loading {
+                display: flex;
+                justify-content: center;
+                width: 100%;
             }
 
             &-desktop {

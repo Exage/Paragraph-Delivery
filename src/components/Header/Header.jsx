@@ -11,7 +11,7 @@ import { Address } from './HeaderElements/Address/Address'
 import { Bag } from './HeaderElements/Bag/Bag'
 import { Burger } from './HeaderElements/Burger/Burger'
 
-export const Header = ({ isBurgerOpen, toggleBurger, closeBurger, userData }) => {
+export const Header = ({ isAdmin, isBurgerOpen, setBurgerOpen, toggleBurger, closeBurger, userData, loading, setLoading }) => {
     const [isTablet, setTablet] = useState(false)
 
     useEffect(() => {
@@ -29,12 +29,29 @@ export const Header = ({ isBurgerOpen, toggleBurger, closeBurger, userData }) =>
             checkWidth()
             window.removeEventListener('resize', checkWidth)
         }
-    }, [isTablet])
+    }, [])
 
     const handleOverlayClick = (event) => {
         if (event.target.classList.contains('header-menu-overlay')) {
             closeBurger()
         }
+    }
+
+    if (loading) {
+        return (
+            <header className='header'>
+                <div className="container">
+                    <div className='header-inner-loading'>
+
+                        <div className='header-inner-logo-loading'>
+                            <img className='header-inner-logo-desktop' src={logoDesktop} />
+                            <img className='header-inner-logo-mobile' src={logoMobile} />
+                        </div>
+
+                    </div>
+                </div>
+            </header>
+        )
     }
 
     if (isTablet) {
@@ -44,7 +61,10 @@ export const Header = ({ isBurgerOpen, toggleBurger, closeBurger, userData }) =>
                     <div className="container">
                         <div className='header-inner'>
                             <div className='header-inner-left-side'>
-                                <Back />
+                                <Back
+                                    isBurgerOpen={isBurgerOpen}
+                                    setBurgerOpen={setBurgerOpen}
+                                />
                             </div>
 
                             <div className='header-inner-logo'>
@@ -72,9 +92,22 @@ export const Header = ({ isBurgerOpen, toggleBurger, closeBurger, userData }) =>
                 >
                     <div className='header-menu'>
                         <div className='header-menu-inner'>
-                            <Address />
-                            <Bag />
-                            <User userData={userData} />
+                            <Address
+                                isBurgerOpen={isBurgerOpen}
+                                setBurgerOpen={setBurgerOpen}
+                            />
+                            <Bag
+                                isBurgerOpen={isBurgerOpen}
+                                setBurgerOpen={setBurgerOpen}
+                            />
+                            <User
+                                isAdmin={isAdmin}
+
+                                isBurgerOpen={isBurgerOpen}
+                                setBurgerOpen={setBurgerOpen}
+
+                                userData={userData}
+                            />
                         </div>
                     </div>
                 </div>
@@ -87,8 +120,18 @@ export const Header = ({ isBurgerOpen, toggleBurger, closeBurger, userData }) =>
             <div className="container">
                 <div className='header-inner'>
                     <div className='header-inner-left-side'>
-                        <Back />
-                        <User closeBurger={closeBurger} userData={userData} />
+                        <Back
+                            isBurgerOpen={isBurgerOpen}
+                            setBurgerOpen={setBurgerOpen}
+                        />
+                        <User
+                            isAdmin={isAdmin}
+
+                            isBurgerOpen={isBurgerOpen}
+                            setBurgerOpen={setBurgerOpen}
+                            
+                            userData={userData}
+                        />
                     </div>
 
                     <div className='header-inner-logo'>
@@ -97,11 +140,13 @@ export const Header = ({ isBurgerOpen, toggleBurger, closeBurger, userData }) =>
                     </div>
 
                     <div className='header-inner-right-side'>
-                        <Address closeBurger={closeBurger} />
-                        <Bag closeBurger={closeBurger} />
-                        <Burger
+                        <Address
                             isBurgerOpen={isBurgerOpen}
-                            toggleBurger={toggleBurger}
+                            setBurgerOpen={setBurgerOpen}
+                        />
+                        <Bag
+                            isBurgerOpen={isBurgerOpen}
+                            setBurgerOpen={setBurgerOpen}
                         />
                     </div>
                 </div>

@@ -1,10 +1,12 @@
 $bg-color: #0F3739;
 $sec-bg-color: #0F3133;
 $dark-color: #061617;
+$btn-color: $sec-bg-color;
+$btn-color-hover: $dark-color;
 $text-color: #ffffff;
 $border-color: #081F20;
 $sec-text-color: $border-color;
-$gradient: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 5%, rgba(0, 0, 0, 0.60) 75%);
+$gradient: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 5%, rgba(0, 0, 0, 0.35) 75%);
 
 $bp-header-1: 916px;
 $bp-header-2: 524px;

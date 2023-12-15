@@ -48,71 +48,69 @@ export const Product = ({ loading, setLoading, isAuth, setIsAuth, isRegister, se
 
     return (
         <div className="container container-nopadding">
-            <div className="product">
-                {product ? (
-                    <>
-                        <div className="product-side">
-                            <div className="container container-nopadding">
-                                <div className="product-side-inner">
-                                    <div className="product-side-bg">
-                                        <img src={product.body.bgImage} />
-                                    </div>
-                                    <div className="product-side-text">
-                                        <div className="product-side-text-inner">
-                                            <h1 className="product-side-title title">{product.name}</h1>
-                                            <div className="product-side-body">
-                                                <p className='product-side-body-consist'>
-                                                    {product.body.consist}
-                                                </p>
-                                                <p className='product-side-body-description'>
-                                                    Описание:<br />
-                                                    {product.body.description}
-                                                </p>
-                                            </div>
+            {product ? (
+                <div className="product">
+                    <div className="product-side">
+                        <div className="container container-nopadding">
+                            <div className="product-side-inner">
+                                <div className="product-side-bg">
+                                    <img src={product.body.bgImage} />
+                                </div>
+                                <div className="product-side-text">
+                                    <div className="product-side-text-inner">
+                                        <h1 className="product-side-title title">{product.name}</h1>
+                                        <div className="product-side-body">
+                                            <p className='product-side-body-consist'>
+                                                {product.body.consist}
+                                            </p>
+                                            <p className='product-side-body-description'>
+                                                Описание:<br />
+                                                {product.body.description}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="product-body">
-                            <div className="product-body-preview">
-                                <img src={product.previewImage} />
-                            </div>
-                            <div
-                                className="product-body-head"
-                                // style={{ backgroundImage: `url(${product.previewImage})` }}
-                            >
-                                <div className="product-body-head-inner">
-                                    <h1 className='product-body-head-title'>{product.name}</h1>
-                                    <div className="product-body-head-text">
-                                        <p className='product-body-head-text-consist'>
-                                            {product.body.consist}
-                                        </p>
-                                        <p className='product-body-head-text-description'>
-                                            Описание: {product.body.description}
-                                        </p>
-                                    </div>
+                    </div>
+                    <div className="product-body">
+                        <div className="product-body-preview">
+                            <img src={product.previewImage} />
+                        </div>
+                        <div
+                            className="product-body-head"
+                        // style={{ backgroundImage: `url(${product.previewImage})` }}
+                        >
+                            <div className="product-body-head-inner">
+                                <h1 className='product-body-head-title'>{product.name}</h1>
+                                <div className="product-body-head-text">
+                                    <p className='product-body-head-text-consist'>
+                                        {product.body.consist}
+                                    </p>
+                                    <p className='product-body-head-text-description'>
+                                        Описание: {product.body.description}
+                                    </p>
                                 </div>
                             </div>
-                            <div className="product-body-products">
-                                {product.product.map(item => (
-                                    <Item
-                                        key={item.uuid}
-                                        item={item}
-
-                                        userData={userData}
-                                        setUserData={setUserData}
-
-                                        uid={uid}
-                                    />
-                                ))}
-                            </div>
                         </div>
-                    </>
-                ) : (
-                    <Loading />
-                )}
-            </div>
+                        <div className="product-body-products">
+                            {product.product.map(item => (
+                                <Item
+                                    key={item.uuid}
+                                    item={item}
+
+                                    userData={userData}
+                                    setUserData={setUserData}
+
+                                    uid={uid}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            ) : (
+                <Loading />
+            )}
         </div>
     )
 }

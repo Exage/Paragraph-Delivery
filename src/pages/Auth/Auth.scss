@@ -1,0 +1,101 @@
+@import '../../vars';
+@import '../../mixins';
+
+$bp-1: 1024px;
+
+.auth {
+    &-startlogo {
+        padding: 0 1rem;
+        margin-bottom: 8rem;
+    }
+
+    &-wrapper {
+        max-width: 33rem;
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    &-sides {
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100vh;
+
+        z-index: -10;
+
+        &-inner {
+            display: flex;
+
+            // max-width: 144rem;
+            width: 100%;
+            height: 100%;
+
+            margin: 0 auto;
+        }
+
+        &-item {
+            width: 20%;
+            background-color: $dark-color;
+
+            @include bp($bp-1) {
+                display: none;
+            }
+
+            &-fixed {
+                width: auto;
+                background: none;
+            }
+
+            &-right {
+                margin-left: auto;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    &-item {
+        min-height: 100vh;
+
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        justify-content: center;
+
+        &-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        &-btn {
+            max-width: 20rem;
+            width: 100%;
+
+            font-size: 2.4rem;
+        }
+
+        &-link {
+            font-size: 1.8rem;
+
+            margin-top: 1.5rem;
+            padding: 1rem;
+
+            cursor: pointer;
+
+            &:disabled {
+                opacity: 0.5;
+            }
+        }
+    }
+}

@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 
 import { AddressEdit } from './AddressEdit'
 
-export const Address = ({ userData, setUserData, uid }) => {
-    const [showEdit, setShowEdit] = useState(false)
+export const Address = ({ addressTitle, userData, setUserData, uid, showEdit, setShowEdit }) => {
 
     return (
         <div className="bag-header-search">
@@ -18,8 +17,8 @@ export const Address = ({ userData, setUserData, uid }) => {
                 </span>
 
                 <span className='bag-header-address'>
-                    {(userData.address !== '') ? (
-                        userData.address
+                    {(addressTitle !== '') ? (
+                        addressTitle
                     ) : (
                         'Не Указан'
                     )}

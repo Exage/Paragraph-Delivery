@@ -55,7 +55,7 @@ export const Items = ({ userData, setUserData, globalCost, setGlobalCost, uid })
         )
 
         for (let i = 0; i < placeholderCount; i++) {
-            items.push(<ItemPlaceholder />)
+            items.push(<ItemPlaceholder key={i} />)
         }
 
         return items

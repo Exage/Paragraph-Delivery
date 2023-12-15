@@ -1,7 +1,21 @@
 import React from 'react'
+import { ThreeDots } from 'react-loader-spinner'
 
-export const Loading = ({ text="Loading..." }) => {
+import './Loading.scss'
+
+export const Loading = () => {
     return (
-        <div style={{ width: '100%', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '5.2rem' }}>{text}</div>
+        <div className='loading'>
+            <ThreeDots
+                height="80"
+                width="80"
+                radius="9"
+                color="#fff"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClassName="loading-loader"
+                visible={true}
+            />
+        </div>
     )
 }
