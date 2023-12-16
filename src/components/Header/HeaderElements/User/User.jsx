@@ -50,7 +50,7 @@ export const User = ({ isAdmin, setBurgerOpen, userData, handleChangeAddress }) 
             )}
             >
                 <button onClick={handleChangeAddress} className={styles.headerUserMenuBtn}>
-                    {userData.address}
+                    {(userData.address !== '') ? userData.address : 'Адрес не указан'}
                 </button>
                 {isAdmin && (
                     <NavLink 
