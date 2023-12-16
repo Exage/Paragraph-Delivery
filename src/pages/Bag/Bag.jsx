@@ -9,19 +9,9 @@ import { Address } from './BagElems/Address/Address.jsx'
 
 import BagIcon from '../../images/header/basket.png'
 
-export const Bag = ({ loading, userData, setUserData, isAuth, isRegister, uid }) => {
+export const Bag = ({ loading, userData, setUserData, isAuth, isRegister, uid, showAddressEdit, setAddressEdit }) => {
     const [globalCost, setGlobalCost] = useState('0.00')
     const [globalCostArr, setGlobalCostArr] = useState([0, 0])
-
-    const [showEdit, setShowEdit] = useState(false)
-
-    useEffect(() => {
-        if (showEdit) {
-            document.body.classList.add('no-scroll')
-        } else {
-            document.body.classList.remove('no-scroll')
-        }
-    }, [showEdit])
 
     useEffect(() => {
         const arr = globalCost.split('.')
@@ -53,7 +43,7 @@ export const Bag = ({ loading, userData, setUserData, isAuth, isRegister, uid })
             <div className="container bag-container">
                 <div className="bag">
                     <div className="bag-header">
-                        <Address addressTitle={userData.address} setUserData={setUserData} userData={userData} uid={uid} showEdit={showEdit} setShowEdit={setShowEdit} />
+                        <Address addressTitle={userData.address} setAddressEdit={setAddressEdit} />
                         <h1 className='bag-header-title'>
                             <img src={BagIcon} className='bag-header-title-icon' />
                             <span className='bag-header-title bag-header-title-underline'>Моя корзина</span>

@@ -11,8 +11,18 @@ import { Address } from './HeaderElements/Address/Address'
 import { Bag } from './HeaderElements/Bag/Bag'
 import { Burger } from './HeaderElements/Burger/Burger'
 
-export const Header = ({ isAdmin, isBurgerOpen, setBurgerOpen, toggleBurger, closeBurger, userData, loading, setLoading }) => {
+export const Header = ({ isAdmin, isBurgerOpen, setBurgerOpen, toggleBurger, closeBurger, userData, loading, setAddressEdit }) => {
     const [isTablet, setTablet] = useState(false)
+
+    const handleChangeAddress = () => {
+        setAddressEdit(true)
+        setBurgerOpen(false)
+    }
+
+    const handleCloseModals = () => {
+        setAddressEdit(false)
+        setBurgerOpen(false)
+    }
 
     useEffect(() => {
         function checkWidth() {
@@ -55,8 +65,6 @@ export const Header = ({ isAdmin, isBurgerOpen, setBurgerOpen, toggleBurger, clo
         )
     }
 
-    console.log(isTablet)
-
     if (isTablet) {
         return (
             <>
@@ -67,6 +75,9 @@ export const Header = ({ isAdmin, isBurgerOpen, setBurgerOpen, toggleBurger, clo
                                 <Back
                                     isBurgerOpen={isBurgerOpen}
                                     setBurgerOpen={setBurgerOpen}
+
+                                    handleChangeAddress={handleChangeAddress}
+                                    handleCloseModals={handleCloseModals}
                                 />
                             </div>
 
@@ -79,6 +90,9 @@ export const Header = ({ isAdmin, isBurgerOpen, setBurgerOpen, toggleBurger, clo
                                 <Burger
                                     isBurgerOpen={isBurgerOpen}
                                     toggleBurger={toggleBurger}
+
+                                    handleChangeAddress={handleChangeAddress}
+                                    handleCloseModals={handleCloseModals}
                                 />
                             </div>
                         </div>
@@ -98,10 +112,12 @@ export const Header = ({ isAdmin, isBurgerOpen, setBurgerOpen, toggleBurger, clo
                             <Address
                                 isBurgerOpen={isBurgerOpen}
                                 setBurgerOpen={setBurgerOpen}
+                                handleCloseModals={handleCloseModals}
                             />
                             <Bag
                                 isBurgerOpen={isBurgerOpen}
                                 setBurgerOpen={setBurgerOpen}
+                                handleCloseModals={handleCloseModals}
                             />
                             <User
                                 isAdmin={isAdmin}
@@ -110,6 +126,8 @@ export const Header = ({ isAdmin, isBurgerOpen, setBurgerOpen, toggleBurger, clo
                                 setBurgerOpen={setBurgerOpen}
 
                                 userData={userData}
+
+                                handleChangeAddress={handleChangeAddress}
                             />
                         </div>
                     </div>
@@ -126,6 +144,9 @@ export const Header = ({ isAdmin, isBurgerOpen, setBurgerOpen, toggleBurger, clo
                         <Back
                             isBurgerOpen={isBurgerOpen}
                             setBurgerOpen={setBurgerOpen}
+
+                            handleChangeAddress={handleChangeAddress}
+                            handleCloseModals={handleCloseModals}
                         />
                         <User
                             isAdmin={isAdmin}
@@ -134,6 +155,8 @@ export const Header = ({ isAdmin, isBurgerOpen, setBurgerOpen, toggleBurger, clo
                             setBurgerOpen={setBurgerOpen}
 
                             userData={userData}
+
+                            handleChangeAddress={handleChangeAddress}
                         />
                     </div>
 
@@ -144,12 +167,10 @@ export const Header = ({ isAdmin, isBurgerOpen, setBurgerOpen, toggleBurger, clo
 
                     <div className='header-inner-right-side'>
                         <Address
-                            isBurgerOpen={isBurgerOpen}
-                            setBurgerOpen={setBurgerOpen}
+                            handleCloseModals={handleCloseModals}
                         />
                         <Bag
-                            isBurgerOpen={isBurgerOpen}
-                            setBurgerOpen={setBurgerOpen}
+                            handleCloseModals={handleCloseModals}
                         />
                     </div>
                 </div>

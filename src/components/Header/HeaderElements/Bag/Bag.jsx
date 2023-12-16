@@ -5,10 +5,10 @@ import bag from '../../../../images/header/basket.png'
 
 import styles from './Bag.module.scss'
 
-export const Bag = ({ setBurgerOpen }) => {
+export const Bag = ({ handleCloseModals }) => {
     return (
         <div className={`header-link-wrapper ${styles.headerBag}`}>
-            <NavLink to='/bag' onClick={() => setBurgerOpen(false)} className={`header-link ${styles.headerBagBtn}`}>
+            <NavLink to='/bag' onClick={handleCloseModals} className={`header-link ${styles.headerBagBtn}`}>
                 <img className={styles.headerBagBtnLogo} src={bag} />
                 <h3 className={styles.headerBagBtnLabel}>
                     Корзина

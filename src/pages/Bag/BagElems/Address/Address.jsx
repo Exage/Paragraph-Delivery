@@ -1,13 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import { AddressEdit } from './AddressEdit'
-
-export const Address = ({ addressTitle, userData, setUserData, uid, showEdit, setShowEdit }) => {
+export const Address = ({ addressTitle, setAddressEdit }) => {
 
     return (
         <div className="bag-header-search">
             <h1
-                onClick={() => setShowEdit(true)}
+                onClick={() => setAddressEdit(true)}
                 className="bag-header-title bag-header-title-clickable"
             >
                 <span
@@ -24,16 +22,6 @@ export const Address = ({ addressTitle, userData, setUserData, uid, showEdit, se
                     )}
                 </span>
             </h1>
-            {showEdit && (
-                <AddressEdit
-                    setShowEdit={setShowEdit}
-
-                    userData={userData}
-                    setUserData={setUserData}
-
-                    uid={uid}
-                />
-            )}
         </div>
     )
 }

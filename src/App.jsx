@@ -24,9 +24,11 @@ import { NotFound } from './pages/NotFound/NotFound'
 /* Components */
 import { Header } from './components/Header/Header'
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
+import { AddressEdit } from './components/AddressEdit/AddressEdit'
 
 function App() {
 	const [isBurgerOpen, setBurgerOpen] = useState(false)
+    const [showAddressEdit, setAddressEdit] = useState(false)
 
 	const location = useLocation()
 
@@ -64,6 +66,14 @@ function App() {
 			authStateHandler()
 		})
 	}, [])
+
+    useEffect(() => {
+        if (showAddressEdit) {
+            document.body.classList.add('no-scroll')
+        } else {
+            document.body.classList.remove('no-scroll')
+        }
+    }, [showAddressEdit])
 
 	const checkUser = async (uid) => {
 		const docRef = doc(firestore, 'users', uid)
@@ -119,7 +129,8 @@ function App() {
 					userData={userData}
 
 					loading={loading}
-					setLoading={setLoading}
+					
+					setAddressEdit={setAddressEdit}
 				/>
 			)}
 			<Routes>
@@ -179,6 +190,9 @@ function App() {
 						isRegister={isRegister} 
 
 						uid={uid}
+
+						showAddressEdit={showAddressEdit}
+						setAddressEdit={setAddressEdit}
 					/>}
 				/>
 				<Route path='/addresses' element={<Addresses isAuth={isAuth} isRegister={isRegister} />} />
@@ -237,6 +251,18 @@ function App() {
 					/>
 				} />
 			</Routes>
+
+
+            {showAddressEdit && (
+                <AddressEdit
+                    setAddressEdit={setAddressEdit}
+
+                    userData={userData}
+                    setUserData={setUserData}
+
+                    uid={uid}
+                />
+            )}
 
 			<div id='recaptcha-container' style={{ display: 'none' }}></div>
 		</div>

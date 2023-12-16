@@ -7,7 +7,7 @@ import styles from './User.module.scss'
 import userLogo from '../../../../images/header/user-logo.png'
 import { Link, NavLink } from 'react-router-dom'
 
-export const User = ({ isAdmin, setBurgerOpen, userData }) => {
+export const User = ({ isAdmin, setBurgerOpen, userData, handleChangeAddress }) => {
     const [userMenuOpen, setUserMenuOpen] = useState(false)
 
     const userSignOut = () => {
@@ -21,7 +21,8 @@ export const User = ({ isAdmin, setBurgerOpen, userData }) => {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+            const target = userMenuRef.current
+            if (target && !target.contains(event.target)) {
                 setUserMenuOpen(false)
             }
         }
@@ -39,7 +40,7 @@ export const User = ({ isAdmin, setBurgerOpen, userData }) => {
                 <img src={userLogo} />
             </div>
             <h3 className={styles.headerUserName}>
-                {userData.name ? userData.name : <span className={styles.headerUserNamePlaceholder}></span>}
+                {userData.name}
             </h3>
 
             <div ref={userMenuRef} className={(
@@ -48,6 +49,9 @@ export const User = ({ isAdmin, setBurgerOpen, userData }) => {
                     : styles.headerUserMenu
             )}
             >
+                <button onClick={handleChangeAddress} className={styles.headerUserMenuBtn}>
+                    {userData.address}
+                </button>
                 {isAdmin && (
                     <NavLink 
                         className={styles.headerUserMenuBtn} 
@@ -58,10 +62,10 @@ export const User = ({ isAdmin, setBurgerOpen, userData }) => {
                         Добавить товар
                     </NavLink>
                 )}
-                <button onClick={userSignOut} className={styles.headerUserMenuBtn}>
+                <button onClick={userSignOut} className={`${styles.headerUserMenuBtn} ${styles.headerUserMenuBtnSignOut}`}>
                     Выйти
                     <span className={styles.headerUserMenuBtnName}>
-                        , {userData.name ? userData.name : <span className={styles.headerUserNamePlaceholder}></span>}
+                        , {userData.name}
                     </span>
                 </button>
             </div>

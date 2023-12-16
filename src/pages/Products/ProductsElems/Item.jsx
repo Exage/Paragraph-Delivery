@@ -11,16 +11,13 @@ export const Item = ({ item, userData, setUserData, uid }) => {
 
     useEffect(() => {
         const checkInBag = () => {
-            userData.bag.map(bagItem => {
+            userData.bag.forEach(bagItem => {
                 if (bagItem.item.uuid === item.uuid) {
                     setInBag(true)
                 }
             })
         }
-
-        return (() => {
-            checkInBag()
-        })
+        checkInBag()
     }, [])
 
     const addToBag = async () => {

@@ -154,30 +154,29 @@ $bp-3: 320px;
         }
 
         &-description {
-            display: block;
+            display: none;
             font-size: 1.8rem;
             margin-top: 0.5rem;
 
-            @include bp($bp-1) {
-                display: none;
-                margin-top: 1rem;
+            &-show {
+                display: block;
+            }
 
-                &-show {
-                    display: block;
-                }
+            @include bp($bp-1) {
+                margin-top: 1rem;
             }
 
             &-btn {
-                display: none;
+                display: block;
                 font-size: 1.8rem;
                 margin-top: 1rem;
 
                 text-decoration: underline;
                 cursor: pointer;
 
-                @include bp($bp-1) {
-                    display: block;
-                }
+                // @include bp($bp-1) {
+                //     display: block;
+                // }
             }
 
             & > p {
