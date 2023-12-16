@@ -21,6 +21,10 @@ $bp-address-2: 360px;
         align-items: center;
     }
 
+    &-overflow {
+        width: 100%;
+    }
+
     &-overlay {
         position: fixed;
         top: 0;
@@ -29,7 +33,10 @@ $bp-address-2: 360px;
         width: 100%;
         height: 100vh;
 
+        overflow: auto;
+
         padding-top: $header-height + 2rem;
+        padding-bottom: 3rem;
 
         background-color: rgba($dark-color, 75%);
 

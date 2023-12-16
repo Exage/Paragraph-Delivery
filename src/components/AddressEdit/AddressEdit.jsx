@@ -21,7 +21,9 @@ export const AddressEdit = ({ setAddressEdit, userData, setUserData, uid }) => {
         const searchWord = event.target.value
         setWordEntered(searchWord)
 
-        setIsAddressComplete(searchWord.trim() !== '' && house.trim() !== '')
+        const addressComplete = (searchWord.trim() !== '' && house.trim() !== '')
+
+        setIsAddressComplete(addressComplete)
 
         const newFilter = UserAdressesData.filter((value) => {
             return value.name.toLowerCase().includes(searchWord.toLowerCase())
@@ -38,14 +40,16 @@ export const AddressEdit = ({ setAddressEdit, userData, setUserData, uid }) => {
         setWordEntered(name)
         setFilteredData([])
 
-        setIsAddressComplete(wordEntered.trim() !== '' && house.trim() !== '')
+        const addressComplete = (wordEntered.trim() !== '' && house.trim() !== '')
+        setIsAddressComplete(addressComplete)
     }
 
     const handleHouse = (event) => {
         const houseValue = event.target.value
         setHouse(houseValue)
 
-        setIsAddressComplete(wordEntered.trim() !== '' && house.trim() !== '')
+        const addressComplete = (wordEntered.trim() !== '' && houseValue.trim() !== '')
+        setIsAddressComplete(addressComplete)
     }
 
     const handleClose = () => {
