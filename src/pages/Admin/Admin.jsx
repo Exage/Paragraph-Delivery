@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
-import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore'
-import { uploadBytes, getDownloadURL, ref } from 'firebase/storage'
-import { v4 as uuidv4 } from 'uuid'
+
 import { firestore, storage } from '../../firebase'
+import { arrayUnion, doc, getDoc, updateDoc, collection, getDocs, query } from 'firebase/firestore'
+import { uploadBytes, getDownloadURL, ref } from 'firebase/storage'
+
+import { v4 as uuidv4 } from 'uuid'
 
 import TextareaAutosize from 'react-textarea-autosize'
 
 import './Admin.scss'
 
-import { HomeItems } from '../Home/HomeItems'
+// import { HomeItems } from '../Home/HomeItems'
 import { Loading } from '../../components/Loading/Loading'
 
-export const Admin = ({ isAuth, isRegister, loading }) => {
+export const Admin = ({ isAuth, isRegister, loading, setLoading }) => {
+	const [homeItems, setHomeItems] = useState([])
     const [disableInputs, setDisableInputs] = useState(false)
     const [productSelectedOption, setProductSelectedOption] = useState('')
 
@@ -32,10 +35,43 @@ export const Admin = ({ isAuth, isRegister, loading }) => {
     const [selectedImage, setSelectedImage] = useState(null)
 
     useEffect(() => {
+        setLoading(true)
+        setHomeItems(null)
+        const fetchData = async () => {
+            try {
+                const q = query(collection(firestore, 'products'))
+                const querySnapshot = await getDocs(q)
+
+                const itemsArr = []
+                
+                querySnapshot.forEach((doc) => {
+                    const item = doc.data()
+                    itemsArr.push({
+                        name: item.name,
+                        id: doc.id,
+                        isSingleProduct: item.isSingleProduct,
+                        previewImage: item.previewImage
+                    })
+                })
+
+                setHomeItems(itemsArr)
+            } catch (error) {
+                console.error('Ошибка при получении данных из Firestore:', error.message)
+                throw error
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        fetchData()
+    }, [])
+
+    useEffect(() => {
         const checkItems = () => {
-            HomeItems.map(item => {
+            homeItems.map(item => {
+                console.log()
                 if (item.id === productSelectedOption) {
-                    if (item.singleProduct) {
+                    if (item.isSingleProduct) {
                         setSingleProduct(true)
                     } else {
                         setSingleProduct(false)
@@ -144,7 +180,7 @@ export const Admin = ({ isAuth, isRegister, loading }) => {
 
                         <select disabled={disableInputs} id='menu' className='admin-select' value={productSelectedOption} onChange={handelProductSelected}>
                             <option value="" disabled>ПРОДУКТЫ</option>
-                            {HomeItems.map((item, key) => {
+                            {homeItems.map((item, key) => {
                                 return <option key={key} value={item.id}>{item.name}</option>
                             })}
                         </select>

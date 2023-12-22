@@ -2,7 +2,9 @@
 @import '../../mixins';
 
 $bp-1: 1024px;
-$bp-2: 555px;
+$bp-2: 860px;
+$bp-3: 555px;
+$bp-4: 435px;
 
 .home {
     display: flex;
@@ -16,7 +18,7 @@ $bp-2: 555px;
 
     position: relative;
 
-    @include bp($bp-2) {
+    @include bp($bp-3) {
         padding-top: $header-height + 2;
         padding-bottom: 2rem;
     }
@@ -69,7 +71,7 @@ $bp-2: 555px;
         flex-wrap: wrap;
         row-gap: 9rem;
 
-        @include bp($bp-2) {
+        @include bp($bp-3) {
             row-gap: 2rem;
         }
     }
@@ -80,7 +82,7 @@ $bp-2: 555px;
 
         position: relative;
 
-        @include bp($bp-2) {
+        @include bp($bp-3) {
             width: 100%;
         }
 
@@ -88,7 +90,7 @@ $bp-2: 555px;
             justify-content: flex-end;
             padding-left: 0.5rem;
 
-            @include bp($bp-2) {
+            @include bp($bp-3) {
                 justify-content: center;
                 padding-left: 0;
             }
@@ -98,7 +100,7 @@ $bp-2: 555px;
             justify-content: flex-start;
             padding-right: 0.5rem;
 
-            @include bp($bp-2) {
+            @include bp($bp-3) {
                 justify-content: center;
                 padding-left: 0;
             }
@@ -109,11 +111,23 @@ $bp-2: 555px;
 
             max-width: 41.5rem;
             width: 100%;
-            height: auto;
+            height: 24rem;
 
             position: relative;
 
             background-color: $dark-color;
+
+            @include bp($bp-2) {
+                height: calc(100vw / 3.6);
+            }
+
+            @include bp($bp-3) {
+                height: 24rem;
+            }
+
+            @include bp($bp-4) {
+                height: calc(100vw / 1.82);
+            }
         }
 
         &-photo {

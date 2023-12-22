@@ -28,15 +28,13 @@ import { AddressEdit } from './components/AddressEdit/AddressEdit'
 
 function App() {
 	const [isBurgerOpen, setBurgerOpen] = useState(false)
-    const [showAddressEdit, setAddressEdit] = useState(false)
+	const [showAddressEdit, setAddressEdit] = useState(false)
 
 	const location = useLocation()
 
 	const [loading, setLoading] = useState(true)
 	const [isAuth, setIsAuth] = useState(!!localStorage.getItem('isAuth'))
 	const [isRegister, setIsRegister] = useState(!!localStorage.getItem('isRegister'))
-
-	const [phoneNumber, setPhoneNumber] = useState()
 
 	// const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userData')))
 	const [isAdmin, setIsAdmin] = useState(false)
@@ -67,13 +65,13 @@ function App() {
 		})
 	}, [])
 
-    useEffect(() => {
-        if (showAddressEdit) {
-            document.body.classList.add('no-scroll')
-        } else {
-            document.body.classList.remove('no-scroll')
-        }
-    }, [showAddressEdit])
+	useEffect(() => {
+		if (showAddressEdit) {
+			document.body.classList.add('no-scroll')
+		} else {
+			document.body.classList.remove('no-scroll')
+		}
+	}, [showAddressEdit])
 
 	const checkUser = async (uid) => {
 		const docRef = doc(firestore, 'users', uid)
@@ -105,7 +103,7 @@ function App() {
 	}
 
 
-    useEffect(() => {
+	useEffect(() => {
 		if (isBurgerOpen) {
 			document.body.classList.add('no-scroll')
 		} else {
@@ -129,7 +127,7 @@ function App() {
 					userData={userData}
 
 					loading={loading}
-					
+
 					setAddressEdit={setAddressEdit}
 				/>
 			)}
@@ -187,7 +185,7 @@ function App() {
 						setUserData={setUserData}
 
 						isAuth={isAuth}
-						isRegister={isRegister} 
+						isRegister={isRegister}
 
 						uid={uid}
 
@@ -195,6 +193,7 @@ function App() {
 						setAddressEdit={setAddressEdit}
 					/>}
 				/>
+
 				<Route path='/addresses' element={<Addresses isAuth={isAuth} isRegister={isRegister} />} />
 
 				<Route path='/product/:productid' element={
@@ -210,7 +209,7 @@ function App() {
 
 						userData={userData}
 						setUserData={setUserData}
-						
+
 						uid={uid}
 					/>
 				} />
@@ -236,9 +235,15 @@ function App() {
 					element={
 						<ProtectedRoute
 							redirectPath="/"
-							isAllowed={(isAdmin)}
+							isAllowed={isAdmin}
 						>
-							<Admin isAuth={isAuth} isRegister={isRegister} loading={loading} />
+							<Admin
+								isAuth={isAuth}
+								isRegister={isRegister}
+
+								loading={loading}
+								setLoading={setLoading}
+							/>
 						</ProtectedRoute>
 					}
 				/>
@@ -253,16 +258,16 @@ function App() {
 			</Routes>
 
 
-            {showAddressEdit && (
-                <AddressEdit
-                    setAddressEdit={setAddressEdit}
+			{showAddressEdit && (
+				<AddressEdit
+					setAddressEdit={setAddressEdit}
 
-                    userData={userData}
-                    setUserData={setUserData}
+					userData={userData}
+					setUserData={setUserData}
 
-                    uid={uid}
-                />
-            )}
+					uid={uid}
+				/>
+			)}
 
 			<div id='recaptcha-container' style={{ display: 'none' }}></div>
 		</div>
